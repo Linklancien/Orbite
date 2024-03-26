@@ -32,6 +32,8 @@ mut:
 
 	players_list	[]Player
 	at_pt_list		[]Attrac_point
+
+	attaques		[]Attaques
 }
 
 fn main() {
@@ -62,20 +64,30 @@ fn on_init(mut app App) {
 	app.at_pt_list << Attrac_point{Vector{size.width/2, size.height/2, 0}, Vector{0, 150, 0}}
 	app.at_pt_list << Attrac_point{Vector{size.width/2, size.height/2, 0}, Vector{0, 200, 0}}
 	app.players_list << Player{Vector{0, 0, 0}, 1, 1, 0, gx.red}
+
+	app.attaques << Orbs_annil{[1], 20, 10}
 }
 
 fn on_frame(mut app App){
 	for mut p in app.players_list{
 		p.update(app)
 	}
+	for mut att in app.attaques{
+		att.update(app)
+	}
+
+	app.check_death()
 
 	app.gg.begin()
 	
 	for at_pt in app.at_pt_list{
-		at_pt.render(app)
+		at_pt.render(app, gx.green)
 	}
 	for p in app.players_list{
 		p.render(app)
+	}
+	for att in app.attaques{
+		att.render(app)
 	}
 	
 	app.gg.end()

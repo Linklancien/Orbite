@@ -30,6 +30,6 @@ struct Attrac_point{
 		dist Vector
 }
 
-fn (at Attrac_point) render(app App){
-	app.gg.draw_circle_empty(f32(at.pos.x), f32(at.pos.y), f32(at.dist.len()), gx.green)
+fn (at Attrac_point) render(app App, color gx.Color){
+	app.gg.draw_circle_empty(f32(at.pos.x), f32(at.pos.y), f32(at.dist.len()), color)
 }
