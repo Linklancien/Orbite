@@ -59,6 +59,8 @@ fn on_init(mut app App) {
 
 	app.gg.end()
 	app.at_pt_list << Attrac_point{Vector{size.width/2, size.height/2, 0}, Vector{0, 100, 0}}
+	app.at_pt_list << Attrac_point{Vector{size.width/2, size.height/2, 0}, Vector{0, 150, 0}}
+	app.at_pt_list << Attrac_point{Vector{size.width/2, size.height/2, 0}, Vector{0, 200, 0}}
 	app.players_list << Player{Vector{0, 0, 0}, 1, 1, 0, gx.red}
 }
 
@@ -68,9 +70,14 @@ fn on_frame(mut app App){
 	}
 
 	app.gg.begin()
+	
+	for at_pt in app.at_pt_list{
+		at_pt.render(app)
+	}
 	for p in app.players_list{
 		p.render(app)
 	}
+	
 	app.gg.end()
 }
 
@@ -81,12 +88,16 @@ fn on_event(e &gg.Event, mut app App) {
 				.escape {
 					app.gg.quit()
 				}
-				// .right_arrow {
-				// 	app.gg.quit()
-				// }
-				// .left_arrow {
-				// 	app.gg.quit()
-				// }
+				.d {
+					if app.players_list[0].center > 0{
+						app.players_list[0].center -= 1
+					}
+				}
+				.s {
+					if app.players_list[0].center < app.at_pt_list.len -1{
+						app.players_list[0].center += 1
+					}
+				}
 				else {}
 			}
 		}

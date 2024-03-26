@@ -2,7 +2,7 @@ import gg
 import gx
 
 const player_r = 10
-const time		= 1.0/8.0
+const time		= 1.0/15.0
 
 struct Player{
 	mut:
@@ -28,4 +28,8 @@ struct Attrac_point{
 	mut:
 		pos Vector
 		dist Vector
+}
+
+fn (at Attrac_point) render(app App){
+	app.gg.draw_circle_empty(f32(at.pos.x), f32(at.pos.y), f32(at.dist.len()), gx.green)
 }
