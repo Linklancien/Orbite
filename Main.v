@@ -2,6 +2,8 @@ module main
 
 import gg
 import gx
+import rand
+
 
 
 const bg_color = gx.black
@@ -74,6 +76,9 @@ fn on_init(mut app App) {
 fn on_frame(mut app App){
 	if app.game{
 		if app.attaques.len == 0{
+			app.new_att()
+		}
+		else if app.attaques.len + 1 < app.at_pt_list.len && rand.int_in_range(0, 10) or{0} == 1{
 			app.new_att()
 		}
 
