@@ -110,6 +110,14 @@ fn on_frame(mut app App){
 		
 		app.gg.end()
 	}
+	else{
+		app.gg.begin()
+
+		app.gg.draw_rounded_rect_filled(int(app.win_width/2), int(app.win_height/2), 60, 25, 5, gx.gray)
+		app.gg.draw_text(int(app.win_width/2), int(app.win_height/2), "Score: ${app.score}", app.text_cfg)
+
+		app.gg.end()
+	}
 }
 
 fn on_event(e &gg.Event, mut app App) {
@@ -127,6 +135,11 @@ fn on_event(e &gg.Event, mut app App) {
 				.s {
 					if app.players_list[0].center < app.at_pt_list.len -1{
 						app.players_list[0].center += 1
+					}
+				}
+				.space {
+					if !app.game{
+						app.game_start()
 					}
 				}
 				else {}
