@@ -6,7 +6,8 @@ interface Attaques {
 
 	mut:
 		cooldown	int
-		update(app App)
+		time		int
+		update(mut app App)
 	
 	
 }
@@ -18,15 +19,12 @@ struct Orbs_annil{
 		time		int
 }
 
-fn (mut ann Orbs_annil) update(app App){
+fn (mut ann Orbs_annil) update(mut app App){
 	if ann.cooldown > 0{
 		ann.cooldown -= 1
 	}
 	else if ann.time > 0{
 		ann.time -= 1
-	}
-	else{
-		println("END Attaque")
 	}
 }
 

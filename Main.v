@@ -26,6 +26,8 @@ const div_chunk_size = 1/f64(chunk_size)
 struct App {
 mut:
 	gg &gg.Context = unsafe { nil }
+
+	game		bool
 	
 	win_width	f64
 	win_height	f64
@@ -33,10 +35,11 @@ mut:
 	players_list	[]Player
 	at_pt_list		[]Attrac_point
 
-	attaques		[]Attaques
+	attaques			[]Attaques
 }
 
 fn main() {
+	
 	mut app := &App{}
 	app.gg = gg.new_context(
 		fullscreen: true
@@ -65,32 +68,39 @@ fn on_init(mut app App) {
 	app.at_pt_list << Attrac_point{Vector{size.width/2, size.height/2, 0}, Vector{0, 200, 0}}
 	app.players_list << Player{Vector{0, 0, 0}, 1, 1, 0, gx.red}
 
-	app.attaques << Orbs_annil{[1], 20, 10}
+	app.game = true
 }
 
 fn on_frame(mut app App){
-	for mut p in app.players_list{
-		p.update(app)
-	}
-	for mut att in app.attaques{
-		att.update(app)
-	}
+	if app.game{
+		if app.attaques.len == 0{
+			app.new_att()
+		}
 
-	app.check_death()
+		for mut p in app.players_list{
+			p.update(app)
+		}
+		for mut att in app.attaques{
+			att.update(mut app)
+		}
 
-	app.gg.begin()
-	
-	for at_pt in app.at_pt_list{
-		at_pt.render(app, gx.green)
+		app. delt_att()
+		app.check_death()
+
+		app.gg.begin()
+		
+		for at_pt in app.at_pt_list{
+			at_pt.render(app, gx.green)
+		}
+		for p in app.players_list{
+			p.render(app)
+		}
+		for att in app.attaques{
+			att.render(app)
+		}
+		
+		app.gg.end()
 	}
-	for p in app.players_list{
-		p.render(app)
-	}
-	for att in app.attaques{
-		att.render(app)
-	}
-	
-	app.gg.end()
 }
 
 fn on_event(e &gg.Event, mut app App) {
