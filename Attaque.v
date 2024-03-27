@@ -53,3 +53,39 @@ fn (ann Orbs_annil) check(p Player) bool{
 	return false
 }
 
+struct Meteor{
+	pos		Vector
+	norm	Vector
+	radius	f64
+
+	mut:
+		cooldown	int
+		time		int
+}
+
+fn (mut met Meteor) update(mut app App){
+	if met.cooldown > 0{
+		met.cooldown -= 1
+	}
+	else if met.time > 0{
+		met.pos = met.pos + mult(time, met.norm)
+		met.time -= 1
+	}
+}
+
+fn (met Meteor) render(app App){
+	app.gg.draw_circle_filled(met.x, met.y, met.radius, gx.red)
+}
+
+fn (met Meteor) check(p Player) bool{
+	if ann.cooldown == 0{
+		if met.x - met.radius < p.pos.x && p.pos.x < met.x + met.radius{
+			if met.y - met.radius < p.pos.y && p.pos.y < met.y + met.radius{
+				return true
+			}
+		}		
+	}
+	return false
+}
+
+
