@@ -78,7 +78,7 @@ fn on_frame(mut app App){
 		if app.attaques.len == 0{
 			app.new_att()
 		}
-		else if app.attaques.len + 1 < app.at_pt_list.len && rand.int_in_range(0, 10) or{0} == 1{
+		else if app.attaques.len + 1 < app.at_pt_list.len && rand.int_in_range(0, 50) or{0} == 1{
 			app.new_att()
 		}
 
