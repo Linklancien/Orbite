@@ -33,11 +33,14 @@ mut:
 	
 	win_width	f64
 	win_height	f64
+	text_cfg	gx.TextCfg
 
 	players_list	[]Player
 	at_pt_list		[]Attrac_point
 
 	attaques			[]Attaques
+
+	score	int
 }
 
 fn main() {
@@ -64,13 +67,10 @@ fn on_init(mut app App) {
 	app.win_width 		= size.width
 	app.win_height 		= size.height
 
-	app.gg.end()
-	app.at_pt_list << Attrac_point{Vector{size.width/2, size.height/2, 0}, Vector{0, 100, 0}}
-	app.at_pt_list << Attrac_point{Vector{size.width/2, size.height/2, 0}, Vector{0, 150, 0}}
-	app.at_pt_list << Attrac_point{Vector{size.width/2, size.height/2, 0}, Vector{0, 200, 0}}
-	app.players_list << Player{Vector{0, 0, 0}, 1, 1, 0, gx.red}
+	app.text_cfg = gx.TextCfg{gx.black, 16, .left, .top, 100, "", false, false, false}
 
-	app.game = true
+	app.gg.end()
+	app.game_start()
 }
 
 fn on_frame(mut app App){
@@ -103,6 +103,10 @@ fn on_frame(mut app App){
 		for att in app.attaques{
 			att.render(app)
 		}
+		
+		app.gg.draw_rounded_rect_filled(int(app.win_width/2), 15, 60, 25, 5, gx.gray)
+		app.gg.draw_text(int(app.win_width/2), 20, "Score: ${app.score}", app.text_cfg)
+    	
 		
 		app.gg.end()
 	}

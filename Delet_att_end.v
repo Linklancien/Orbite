@@ -12,4 +12,6 @@ fn (mut app App) delt_att(){
 		app.attaques.delete(ind - i)
 		i += 1
 	}
+	
+	app.score += i
 }
