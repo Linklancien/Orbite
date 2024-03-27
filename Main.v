@@ -75,11 +75,15 @@ fn on_init(mut app App) {
 
 fn on_frame(mut app App){
 	if app.game{
-		if app.attaques.len == 0{
-			app.new_att()
-		}
-		else if app.attaques.len + 1 < app.at_pt_list.len && rand.int_in_range(0, 50) or{0} == 1{
-			app.new_att()
+		if app.attaques.len < int(app.score/10 +1){
+			match rand.int_in_range(0, 50) or{0}{
+				1{
+					if app.attaques.len + 1 < app.at_pt_list.len {
+						app.new_att()
+					}
+				}
+				else{}
+			}
 		}
 
 		for mut p in app.players_list{
@@ -136,6 +140,9 @@ fn on_event(e &gg.Event, mut app App) {
 					if app.players_list[0].center < app.at_pt_list.len -1{
 						app.players_list[0].center += 1
 					}
+				}
+				.f {
+					app.players_list[0].moment = -app.players_list[0].moment
 				}
 				.space {
 					if !app.game{
