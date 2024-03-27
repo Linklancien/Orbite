@@ -29,8 +29,11 @@ fn (mut ann Orbs_annil) update(mut app App){
 }
 
 fn (ann Orbs_annil) render(app App){
-	mut color := gx.red
-	if ann.cooldown %2 == 1{
+	mut color := gx.gray
+	if ann.cooldown == 0{
+		color = gx.red
+	}
+	else if ann.cooldown %20 -10 < 0{
 		color = gx.white
 	}
 
@@ -40,7 +43,7 @@ fn (ann Orbs_annil) render(app App){
 }
 
 fn (ann Orbs_annil) check(p Player) bool{
-	if ann.time != 0{
+	if ann.cooldown == 0{
 		for at in ann.orbs{
 			if p.center == at {
 				return true
