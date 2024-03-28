@@ -55,6 +55,7 @@ fn (ann Orbs_annil) check(p Player) bool{
 
 struct Meteor{
 	norm	Vector
+	
 	radius	f64
 
 	mut:
@@ -69,13 +70,16 @@ fn (mut met Meteor) update(mut app App){
 	}
 	else if met.time > 0{
 		met.pos = met.pos + mult(time, met.norm)
-		dump(met.pos)
-		met.time -= 1
+		if met.pos.x < app.win_width/4 || met.pos.y < app.win_height/4 || app.win_width*3/4 < met.pos.x || app.win_height*3/4 < met.pos.y{
+			met.time = 0
+		}
 	}
 }
 
 fn (met Meteor) render(app App){
 	app.gg.draw_circle_filled(f32(met.pos.x), f32(met.pos.y), f32(met.radius), gx.red)
+	end := met.pos + met.norm
+	app.gg.draw_line(f32(met.pos.x), f32(met.pos.y), f32(end.x), f32(end.y), gx.white)
 }
 
 fn (met Meteor) check(p Player) bool{
