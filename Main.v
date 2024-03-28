@@ -41,7 +41,7 @@ mut:
 }
 
 fn main() {
-	
+
 	mut app := &App{}
 	app.gg = gg.new_context(
 		fullscreen: true
