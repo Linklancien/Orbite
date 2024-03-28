@@ -13,5 +13,5 @@ fn (mut app App) delt_att(){
 		i += 1
 	}
 	
-	app.score += i
+	app.score[0] += i
 }

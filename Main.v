@@ -37,14 +37,16 @@ mut:
 
 	attaques			[]Attaques
 
-	score	int
+	score	[]int
 }
 
 fn main() {
 
 	mut app := &App{}
 	app.gg = gg.new_context(
-		fullscreen: true
+		fullscreen: false
+		width: 600
+		height: 600
 		create_window: true
 		window_title: '- Orbites -'
 		user_data: app
@@ -60,6 +62,8 @@ fn main() {
 fn on_init(mut app App) {
 	app.gg.begin()
 
+	app.score = [0]
+
 	size := app.gg.window_size()
 	app.win_width 		= size.width
 	app.win_height 		= size.height
@@ -72,7 +76,7 @@ fn on_init(mut app App) {
 
 fn on_frame(mut app App){
 	if app.game{
-		if app.attaques.len < int(app.score/10 +1){
+		if app.attaques.len < int(app.score[0]/10 +1){
 			app.new_att()
 		}
 
@@ -99,7 +103,7 @@ fn on_frame(mut app App){
 		}
 		
 		app.gg.draw_rounded_rect_filled(int(app.win_width/2), 15, 60, 25, 5, gx.gray)
-		app.gg.draw_text(int(app.win_width/2), 20, "Score: ${app.score}", app.text_cfg)
+		app.gg.draw_text(int(app.win_width/2), 20, "Score: ${app.score[0]}", app.text_cfg)
     	
 		
 		app.gg.end()
@@ -108,7 +112,7 @@ fn on_frame(mut app App){
 		app.gg.begin()
 
 		app.gg.draw_rounded_rect_filled(int(app.win_width/2), int(app.win_height/2), 60, 25, 5, gx.gray)
-		app.gg.draw_text(int(app.win_width/2), int(app.win_height/2), "Score: ${app.score}", app.text_cfg)
+		app.gg.draw_text(int(app.win_width/2), int(app.win_height/2), "Score: ${app.score[0]}", app.text_cfg)
 
 		app.gg.end()
 	}

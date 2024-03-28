@@ -83,16 +83,16 @@ fn (met Meteor) render(app App){
 		}
 
 		pos :=	met.pos + mult(1, met.norm)
-		pos1 :=	pos + Vector{0, -35, 0}
-		pos2 :=	pos + Vector{-35, 35, 0}
-		pos3 :=	pos + Vector{35, 35, 0}
+		pos1 :=	pos + Vector{0, -40, 0}
+		pos2 :=	pos + Vector{-40, 40, 0}
+		pos3 :=	pos + Vector{40, 40, 0}
 		app.gg.draw_triangle_filled(f32(pos1.x), f32(pos1.y), f32(pos2.x), f32(pos2.y), f32(pos3.x), f32(pos3.y), gx.red)
 
 		pos_line 		:= pos + Vector{0, -20, 0}
 		pos_line_bot	:= pos + Vector{0, 20, 0}
 		app.gg.draw_line(f32(pos_line.x), f32(pos_line.y), f32(pos_line_bot.x), f32(pos_line_bot.y), color)
 		pos_circle	:= pos + Vector{0, 25, 0}
-		app.gg.draw_circle_filled(f32(pos_circle.x), f32(pos_circle.y), 10, color)
+		app.gg.draw_circle_filled(f32(pos_circle.x), f32(pos_circle.y), 5, color)
 	}
 	else{
 		app.gg.draw_circle_filled(f32(met.pos.x), f32(met.pos.y), f32(met.radius), gx.red)

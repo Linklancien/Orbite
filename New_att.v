@@ -16,23 +16,23 @@ fn (mut app App) new_att(){
 				}
 				2{
 					x = rand.f64_in_range(0, app.win_width)	or{0}
-					y = rand.f64_in_range(0, app.win_height)	or{0}
+					y = app.win_height
 				}
 				3{
 					y = rand.f64_in_range(0, app.win_height)	or{0}
 				}
 				4{
 					y = rand.f64_in_range(0, app.win_height)	or{0}
-					x = rand.f64_in_range(0, app.win_width)	or{0}
+					x = app.win_width
 				}
 				else{}
 			}
 
 			pos := Vector{x, y, 0}
 			radius := rand.f64_in_range(10, 50)	or{0}
-			norm := mult(radius, (app.players_list[0].pos - pos).normalize())
+			norm := mult(100, (app.players_list[0].pos - pos).normalize())
 
-			app.attaques  << Meteor{norm, radius, pos,  50, 500}
+			app.attaques  << Meteor{norm, radius, pos,  200, 500}
 		}
 		else{}
 	}

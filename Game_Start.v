@@ -11,5 +11,5 @@ fn (mut app App) game_start(){
 	app.players_list = [Player{Vector{0, 0, 0}, 1, 1, 0, gx.red}]
 
 	app.game = true
-	app.score = 0
+	app.score[0] = 0
 }
