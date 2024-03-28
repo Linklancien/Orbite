@@ -33,7 +33,7 @@ mut:
 	text_cfg	gx.TextCfg
 
 	players_list	[]Player
-	at_pt_list		[]Attrac_point
+	at_pt_list		[]Center
 
 	attaques			[]Attaques
 
@@ -46,7 +46,7 @@ fn main() {
 	app.gg = gg.new_context(
 		fullscreen: true
 		create_window: true
-		window_title: '- Physic -'
+		window_title: '- Orbites -'
 		user_data: app
 		bg_color: bg_color
 		init_fn:  on_init

@@ -55,7 +55,6 @@ fn (ann Orbs_annil) check(p Player) bool{
 
 struct Meteor{
 	norm	Vector
-	
 	radius	f64
 
 	mut:
@@ -70,7 +69,7 @@ fn (mut met Meteor) update(mut app App){
 	}
 	else if met.time > 0{
 		met.pos = met.pos + mult(time, met.norm)
-		if met.pos.x < app.win_width/4 || met.pos.y < app.win_height/4 || app.win_width*3/4 < met.pos.x || app.win_height*3/4 < met.pos.y{
+		if met.pos.x < 0 || met.pos.y < 0 || app.win_width < met.pos.x || app.win_height < met.pos.y{
 			met.time = 0
 		}
 	}

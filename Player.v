@@ -24,12 +24,12 @@ fn (mut p Player) update(app App){
 }
 
 
-struct Attrac_point{
+struct Center{
 	mut:
 		pos Vector
 		dist Vector
 }
 
-fn (at Attrac_point) render(app App, color gx.Color){
-	app.gg.draw_circle_empty(f32(at.pos.x), f32(at.pos.y), f32(at.dist.len()), color)
+fn (center Center) render(app App, color gx.Color){
+	app.gg.draw_circle_empty(f32(center.pos.x), f32(center.pos.y), f32(center.dist.len()), color)
 }
