@@ -45,8 +45,8 @@ fn main() {
 	mut app := &App{}
 	app.gg = gg.new_context(
 		fullscreen: false
-		width: 600
-		height: 600
+		width: 700
+		height: 700
 		create_window: true
 		window_title: '- Orbites -'
 		user_data: app
