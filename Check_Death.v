@@ -1,10 +1,17 @@
 
 fn (mut app App) check_death(){
-	for p in app.players_list{
+	mut alive := false
+	for mut p in app.players_list{
 		for att in app.attaques{
 			if att.check(p){
-				app.game = false
+				p.is_alive = false
 			}
 		}
+		if p.is_alive == true{
+			alive = true
+		}
+	}
+	if !alive{
+		app.game = false
 	}
 }

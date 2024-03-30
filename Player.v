@@ -11,6 +11,7 @@ struct Player{
 		rotation	f64
 		temps_tour	f64
 		center 		int
+		is_alive	bool
 	color			gx.Color
 }
 
@@ -19,9 +20,11 @@ fn (p Player) render(app App){
 }
 
 fn (mut p Player) update(app App){
-	p.rotation += time/p.temps_tour
-	center := app.center_list[p.center]
-	p.pos = center.pos + center.dist.turn(p.rotation)
+	if p.is_alive{
+		p.rotation += time/p.temps_tour
+		center := app.center_list[p.center]
+		p.pos = center.pos + center.dist.turn(p.rotation)
+	}
 }
 
 fn (mut p Player) center_changer(change f64, app App){

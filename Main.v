@@ -33,6 +33,7 @@ mut:
 	text_cfg	gx.TextCfg
 
 	players_list	[]Player
+	player_nb		int
 	center_list		[]Center
 
 	attaques			[]Attaques
@@ -60,6 +61,8 @@ fn main() {
 }
 
 fn on_init(mut app App) {
+	app.player_nb = 1
+	app.game = false
 	app.gg.begin()
 
 	app.score = [0]
@@ -71,7 +74,6 @@ fn on_init(mut app App) {
 	app.text_cfg = gx.TextCfg{gx.black, 16, .left, .top, 100, "", false, false, false}
 
 	app.gg.end()
-	app.game_start()
 }
 
 fn on_frame(mut app App){
@@ -111,8 +113,14 @@ fn on_frame(mut app App){
 	else{
 		app.gg.begin()
 
-		app.gg.draw_rounded_rect_filled(int(app.win_width/2), int(app.win_height/2), 60, 25, 5, gx.gray)
-		app.gg.draw_text(int(app.win_width/2), int(app.win_height/2), "Score: ${app.score[0]}", app.text_cfg)
+		app.gg.draw_rounded_rect_filled(int(app.win_width/2) - 5, int(app.win_height/2), 75, 25, 5, gx.gray)
+		app.gg.draw_text(int(app.win_width/2), int(app.win_height/2) + 5, "Score: ${app.score[0]}", app.text_cfg)
+
+		app.gg.draw_rounded_rect_filled(int(app.win_width/2) - 15, int(app.win_height/2) - 40, 90, 25, 5, gx.gray)
+		app.gg.draw_text(int(app.win_width/2) - 10, int(app.win_height/2) - 35, "Playernb: ${app.player_nb}", app.text_cfg)
+
+		app.gg.draw_rounded_rect_filled(int(app.win_width/2) - 25, int(app.win_height/2) + 40, 110, 25, 5, gx.gray)
+		app.gg.draw_text(int(app.win_width/2) - 20, int(app.win_height/2) + 45, "PRESS SPACE", app.text_cfg)
 
 		app.gg.end()
 	}
@@ -137,6 +145,36 @@ fn on_event(e &gg.Event, mut app App) {
 				}
 				.f {
 					app.players_list[0].temps_tour = -app.players_list[0].temps_tour
+				}
+				.j {
+					if app.player_nb > 1{
+						if app.players_list[1].center > 0{
+							app.players_list[1].center_changer(-1 ,app)
+						}
+					}	
+				}
+				.k {
+					if app.player_nb > 1{
+						if app.players_list[1].center < app.center_list.len -1{
+							app.players_list[1].center_changer(1 ,app)
+						}
+					}
+					
+				}
+				.l {
+					if app.player_nb > 1{
+						app.players_list[1].temps_tour = -app.players_list[0].temps_tour
+					}
+				}
+				.t {
+					if !app.game{
+						app.player_nb += 1
+					}
+				}
+				.y {
+					if app.player_nb > 1 && !app.game{
+						app.player_nb -= 1
+					}					
 				}
 				.space {
 					if !app.game{
