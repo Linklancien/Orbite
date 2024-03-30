@@ -9,7 +9,7 @@ struct Player{
 	mut:
 		pos 		Vector
 		rotation	f64
-		temps_tour		f64
+		temps_tour	f64
 		center 		int
 	color			gx.Color
 }

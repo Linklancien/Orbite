@@ -3,6 +3,7 @@ import gx
 interface Attaques {
 	render(app App)
 	check(p Player) bool
+	is_orbite		bool
 
 	mut:
 		cooldown	int
@@ -13,6 +14,7 @@ interface Attaques {
 }
 
 struct Orbs_annil{
+	is_orbite	bool 
 	orbs		[]int
 	mut:
 		cooldown	int
@@ -54,9 +56,10 @@ fn (ann Orbs_annil) check(p Player) bool{
 }
 
 struct Meteor{
-	norm	Vector
-	radius	f64
-
+	is_orbite	bool
+	norm		Vector
+	radius		f64
+	
 	mut:
 		pos		Vector
 		cooldown	int

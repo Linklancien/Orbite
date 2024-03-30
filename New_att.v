@@ -3,8 +3,17 @@ import rand
 fn (mut app App) new_att(){
 	match rand.int_in_range(0, 50) or{0}{
 		1{
-			if app.attaques.len + 1 < app.center_list.len {
-				app.attaques  << Orbs_annil{[rand.int_in_range(0, app.center_list.len) or {0}], 200, 50}
+			mut count := 0
+			for attaque in app.attaques{
+				if attaque.is_orbite{
+					count += 1
+					if count + 1 < app.center_list.len {
+						break
+					}
+				}
+			}
+			if count + 1 < app.center_list.len {
+				app.attaques  << Orbs_annil{true, [rand.int_in_range(0, app.center_list.len) or {0}], 200, 50}
 			}
 		}
 		2{
@@ -32,7 +41,7 @@ fn (mut app App) new_att(){
 			radius := rand.f64_in_range(10, 50)	or{0}
 			norm := mult(100, (app.players_list[0].pos - pos).normalize())
 
-			app.attaques  << Meteor{norm, radius, pos,  200, 500}
+			app.attaques  << Meteor{false, norm, radius, pos,  200, 500}
 		}
 		else{}
 	}
