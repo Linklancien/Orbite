@@ -33,7 +33,7 @@ mut:
 	text_cfg	gx.TextCfg
 
 	players_list	[]Player
-	at_pt_list		[]Center
+	center_list		[]Center
 
 	attaques			[]Attaques
 
@@ -92,8 +92,8 @@ fn on_frame(mut app App){
 
 		app.gg.begin()
 		
-		for at_pt in app.at_pt_list{
-			at_pt.render(app, gx.green)
+		for center in app.center_list{
+			center.render(app, gx.green)
 		}
 		for p in app.players_list{
 			p.render(app)
@@ -127,16 +127,16 @@ fn on_event(e &gg.Event, mut app App) {
 				}
 				.d {
 					if app.players_list[0].center > 0{
-						app.players_list[0].center -= 1
+						app.players_list[0].center_changer(-1 ,app)
 					}
 				}
 				.s {
-					if app.players_list[0].center < app.at_pt_list.len -1{
-						app.players_list[0].center += 1
+					if app.players_list[0].center < app.center_list.len -1{
+						app.players_list[0].center_changer(1 ,app)
 					}
 				}
 				.f {
-					app.players_list[0].moment = -app.players_list[0].moment
+					app.players_list[0].temps_tour = -app.players_list[0].temps_tour
 				}
 				.space {
 					if !app.game{

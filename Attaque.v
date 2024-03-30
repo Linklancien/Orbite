@@ -38,7 +38,7 @@ fn (ann Orbs_annil) render(app App){
 	}
 
 	for orb in ann.orbs{
-		app.at_pt_list[orb].render(app, color)
+		app.center_list[orb].render(app, color)
 	}
 }
 

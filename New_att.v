@@ -3,8 +3,8 @@ import rand
 fn (mut app App) new_att(){
 	match rand.int_in_range(0, 50) or{0}{
 		1{
-			if app.attaques.len + 1 < app.at_pt_list.len {
-				app.attaques  << Orbs_annil{[rand.int_in_range(0, app.at_pt_list.len) or {0}], 200, 50}
+			if app.attaques.len + 1 < app.center_list.len {
+				app.attaques  << Orbs_annil{[rand.int_in_range(0, app.center_list.len) or {0}], 200, 50}
 			}
 		}
 		2{

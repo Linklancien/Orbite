@@ -1,5 +1,6 @@
 import gg
 import gx
+import math
 
 const player_r = 10
 const time		= 1.0/20.0
@@ -8,7 +9,7 @@ struct Player{
 	mut:
 		pos 		Vector
 		rotation	f64
-		moment		f64
+		temps_tour		f64
 		center 		int
 	color			gx.Color
 }
@@ -18,16 +19,26 @@ fn (p Player) render(app App){
 }
 
 fn (mut p Player) update(app App){
-	p.rotation += p.moment*time
-	center := app.at_pt_list[p.center]
+	p.rotation += time/p.temps_tour
+	center := app.center_list[p.center]
 	p.pos = center.pos + center.dist.turn(p.rotation)
+}
+
+fn (mut p Player) center_changer(change f64, app App){
+	p.center = int(p.center + change)
+	mut signe := 1.0
+	if p.temps_tour < 0{
+		signe = -1.0
+	}
+	p.temps_tour = 2*signe*math.pi*app.center_list[p.center].radius/1000
 }
 
 
 struct Center{
 	mut:
-		pos Vector
-		dist Vector
+		pos		Vector
+		dist	Vector
+		radius	f64
 }
 
 fn (center Center) render(app App, color gx.Color){
