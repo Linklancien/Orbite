@@ -163,7 +163,7 @@ fn on_event(e &gg.Event, mut app App) {
 				}
 				.l {
 					if app.player_nb > 1{
-						app.players_list[1].temps_tour = -app.players_list[0].temps_tour
+						app.players_list[1].temps_tour = -app.players_list[1].temps_tour
 					}
 				}
 				.t {
