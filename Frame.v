@@ -66,9 +66,6 @@ fn (app App) lobby(){
 
 fn (app App) text_rect_render(x int, y int, text string){
 	lenght := text.len * app.text_cfg.size/2
-	dump(text)
-	dump(text.len)
-	dump(lenght)
 	new_x := x - lenght/2
 	new_y := y
 	app.gg.draw_rounded_rect_filled(new_x - 5, new_y, lenght, 25, 5, gx.gray)
