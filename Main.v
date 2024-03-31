@@ -78,14 +78,14 @@ fn on_event(e &gg.Event, mut app App) {
 				}
 				.s {
 					if app.game{
-						if app.players_list[0].center < app.center_list.len -1{
+						if app.players_list[0].center > 0 && app.game{
 							app.players_list[0].center_changer(-1 ,app)
 						}
 					}
 				}
 				.d {
 					if app.game{
-						if app.players_list[0].center > 0 && app.game{
+						if app.players_list[0].center < app.center_list.len -1{
 							app.players_list[0].center_changer(1 ,app)
 						}
 					}
