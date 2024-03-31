@@ -76,28 +76,35 @@ fn on_event(e &gg.Event, mut app App) {
 				.escape {
 					app.gg.quit()
 				}
-				.d {
-					if app.players_list[0].center > 0{
-						app.players_list[0].center_changer(-1 ,app)
+				.s {
+					if app.game{
+						if app.players_list[0].center < app.center_list.len -1{
+							app.players_list[0].center_changer(-1 ,app)
+						}
 					}
 				}
-				.s {
-					if app.players_list[0].center < app.center_list.len -1{
-						app.players_list[0].center_changer(1 ,app)
+				.d {
+					if app.game{
+						if app.players_list[0].center > 0 && app.game{
+							app.players_list[0].center_changer(1 ,app)
+						}
 					}
 				}
 				.f {
-					app.players_list[0].temps_tour = -app.players_list[0].temps_tour
+					if app.game{
+						app.players_list[0].temps_tour = -app.players_list[0].temps_tour
+					}
+					
 				}
 				.j {
-					if app.player_nb > 1{
+					if app.player_nb > 1 && app.game{
 						if app.players_list[1].center > 0{
 							app.players_list[1].center_changer(-1 ,app)
 						}
 					}	
 				}
 				.k {
-					if app.player_nb > 1{
+					if app.player_nb > 1 && app.game{
 						if app.players_list[1].center < app.center_list.len -1{
 							app.players_list[1].center_changer(1 ,app)
 						}
@@ -105,7 +112,7 @@ fn on_event(e &gg.Event, mut app App) {
 					
 				}
 				.l {
-					if app.player_nb > 1{
+					if app.player_nb > 1 && app.game{
 						app.players_list[1].temps_tour = -app.players_list[1].temps_tour
 					}
 				}
