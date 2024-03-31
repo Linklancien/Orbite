@@ -4,18 +4,11 @@ import gg
 import gx
 
 const bg_color = gx.black
+const nb_player_max = 2
 
 //______________UI______________
 const colors = [gx.red, gx.blue]
 
-//____________Physic____________
-const gravity = Vector{0, 1, 0}
-
-const materials = {
-	'iron':    1.5
-	'wood':    1.0
-	'feather': 0.5
-}
 
 const scale = 1
 
@@ -76,56 +69,6 @@ fn on_init(mut app App) {
 	app.gg.end()
 }
 
-fn on_frame(mut app App){
-	if app.game{
-		if app.attaques.len < int(app.score[0]/10 +1){
-			app.new_att()
-		}
-
-		for mut p in app.players_list{
-			p.update(app)
-		}
-		for mut att in app.attaques{
-			att.update(mut app)
-		}
-
-		app. delt_att()
-		app.check_death()
-
-		app.gg.begin()
-		
-		for center in app.center_list{
-			center.render(app, gx.green)
-		}
-		for p in app.players_list{
-			p.render(app)
-		}
-		for att in app.attaques{
-			att.render(app)
-		}
-		
-		app.gg.draw_rounded_rect_filled(int(app.win_width/2), 15, 60, 25, 5, gx.gray)
-		app.gg.draw_text(int(app.win_width/2), 20, "Score: ${app.score[0]}", app.text_cfg)
-    	
-		
-		app.gg.end()
-	}
-	else{
-		app.gg.begin()
-
-		app.gg.draw_rounded_rect_filled(int(app.win_width/2) - 5, int(app.win_height/2), 75, 25, 5, gx.gray)
-		app.gg.draw_text(int(app.win_width/2), int(app.win_height/2) + 5, "Score: ${app.score[0]}", app.text_cfg)
-
-		app.gg.draw_rounded_rect_filled(int(app.win_width/2) - 15, int(app.win_height/2) - 40, 90, 25, 5, gx.gray)
-		app.gg.draw_text(int(app.win_width/2) - 10, int(app.win_height/2) - 35, "Playernb: ${app.player_nb}", app.text_cfg)
-
-		app.gg.draw_rounded_rect_filled(int(app.win_width/2) - 25, int(app.win_height/2) + 40, 110, 25, 5, gx.gray)
-		app.gg.draw_text(int(app.win_width/2) - 20, int(app.win_height/2) + 45, "PRESS SPACE", app.text_cfg)
-
-		app.gg.end()
-	}
-}
-
 fn on_event(e &gg.Event, mut app App) {
 	match e.typ {
 		.key_down {
@@ -166,12 +109,12 @@ fn on_event(e &gg.Event, mut app App) {
 						app.players_list[1].temps_tour = -app.players_list[1].temps_tour
 					}
 				}
-				.t {
-					if !app.game{
+				.y {
+					if app.player_nb < nb_player_max && !app.game{
 						app.player_nb += 1
 					}
 				}
-				.y {
+				.t {
 					if app.player_nb > 1 && !app.game{
 						app.player_nb -= 1
 					}					

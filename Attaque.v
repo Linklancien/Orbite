@@ -99,8 +99,8 @@ fn (met Meteor) render(app App){
 	}
 	else{
 		app.gg.draw_circle_filled(f32(met.pos.x), f32(met.pos.y), f32(met.radius), gx.red)
-		end := met.pos + met.norm
-		app.gg.draw_line(f32(met.pos.x), f32(met.pos.y), f32(end.x), f32(end.y), gx.white)
+		// end := met.pos + met.norm
+		//app.gg.draw_line(f32(met.pos.x), f32(met.pos.y), f32(end.x), f32(end.y), gx.white)
 	}
 }
 

@@ -39,7 +39,8 @@ fn (mut app App) new_att(){
 
 			pos := Vector{x, y, 0}
 			radius := rand.f64_in_range(10, 50)	or{0}
-			norm := mult(100, (app.players_list[0].pos - pos).normalize())
+			p_cible := rand.int_in_range(0, app.players_list.len-1) or {0}
+			norm := mult(100, (app.players_list[p_cible].pos - pos).normalize())
 
 			app.attaques  << Meteor{false, norm, radius, pos,  200, 500}
 		}
