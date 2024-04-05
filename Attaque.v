@@ -2,7 +2,7 @@ import gx
 
 interface Attaques {
 	render(app App)
-	check(p Player) bool
+	check(app App, p Player) bool
 	is_orbite		bool
 
 	mut:
@@ -44,7 +44,7 @@ fn (ann Orbs_annil) render(app App){
 	}
 }
 
-fn (ann Orbs_annil) check(p Player) bool{
+fn (ann Orbs_annil) check(app App, p Player) bool{
 	if ann.cooldown == 0{
 		for at in ann.orbs{
 			if p.center == at {
@@ -99,12 +99,10 @@ fn (met Meteor) render(app App){
 	}
 	else{
 		app.gg.draw_circle_filled(f32(met.pos.x), f32(met.pos.y), f32(met.radius), gx.red)
-		// end := met.pos + met.norm
-		//app.gg.draw_line(f32(met.pos.x), f32(met.pos.y), f32(end.x), f32(end.y), gx.white)
 	}
 }
 
-fn (met Meteor) check(p Player) bool{
+fn (met Meteor) check(app App, p Player) bool{
 	if met.cooldown == 0{
 		if met.pos.x - met.radius < p.pos.x && p.pos.x < met.pos.x + met.radius{
 			if met.pos.y - met.radius < p.pos.y && p.pos.y < met.pos.y + met.radius{
@@ -115,4 +113,44 @@ fn (met Meteor) check(p Player) bool{
 	return false
 }
 
+struct Laser{
+	is_orbite		bool
+	mut:
+		rotation	f64
+		temps_tour	f64
+		cooldown	int
+		time		int
+}
 
+fn (mut laser Laser) update(mut app App){
+	if laser.cooldown > 0{
+		laser.cooldown -= 1
+	}
+	else if laser.time > 0{
+		laser.time -= 1
+		laser.rotation += time/laser.temps_tour
+	}
+}
+
+fn (laser Laser) render(app App){
+	mut color := gx.gray
+	if laser.cooldown == 0{
+		color = gx.red
+	}
+	else if laser.cooldown %20 -10 < 0{
+		color = gx.white
+	}
+	pos := Vector{f32(app.win_width/2), f32(app.win_height/2), 0} + mult(1.2, app.center_list[app.center_list.len-1].dist.turn(laser.rotation))
+	x := pos.x
+	y := pos.y
+	app.gg.draw_line(f32(app.win_width/2), f32(app.win_height/2), f32(x), f32(y), color)
+}
+
+fn (laser Laser) check(app App, p Player) bool{
+	if laser.cooldown == 0{
+		if app.center_list[p.center].dist.turn(p.rotation) == app.center_list[p.center].dist.turn(laser.rotation){
+			return true
+		}
+	}
+	return false
+}
