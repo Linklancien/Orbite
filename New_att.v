@@ -39,7 +39,14 @@ fn (mut app App) new_att(){
 
 			pos := Vector{x, y, 0}
 			radius := rand.f64_in_range(10, 50)	or{0}
-			p_cible := rand.int_in_range(0, app.players_list.len-1) or {0}
+			mut list_p := []int{}
+			for p_ind in 0..app.players_list.len{
+				if app.players_list[p_ind].is_alive{
+					list_p << p_ind
+				}
+			}
+			p_cible := list_p[rand.int_in_range(0, list_p.len-1) or {0}]
+
 			norm := mult(100, (app.players_list[p_cible].pos - pos).normalize())
 
 			app.attaques  << Meteor{false, norm, radius, pos,  200, 500}
