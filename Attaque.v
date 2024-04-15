@@ -3,7 +3,7 @@ import gx
 interface Attaques {
 	render(app App)
 	check(app App, p Player) bool
-	is_orbite		bool
+	name Attaques_name
 
 	mut:
 		cooldown	int
@@ -13,12 +13,19 @@ interface Attaques {
 	
 }
 
+enum Attaques_name {
+	orbs_annil
+	meteor
+	laser
+}
+
 struct Orbs_annil{
-	is_orbite	bool 
+	name	Attaques_name 
 	orbs		[]int
 	mut:
 		cooldown	int
 		time		int
+	// name	orbs	cooldown	time
 }
 
 fn (mut ann Orbs_annil) update(mut app App){
@@ -56,7 +63,7 @@ fn (ann Orbs_annil) check(app App, p Player) bool{
 }
 
 struct Meteor{
-	is_orbite	bool
+	name	Attaques_name
 	norm		Vector
 	radius		f64
 	
@@ -64,6 +71,7 @@ struct Meteor{
 		pos		Vector
 		cooldown	int
 		time		int
+	//name	norm	radius	pos	cooldown	time
 }
 
 fn (mut met Meteor) update(mut app App){
@@ -104,22 +112,21 @@ fn (met Meteor) render(app App){
 
 fn (met Meteor) check(app App, p Player) bool{
 	if met.cooldown == 0{
-		if met.pos.x - met.radius < p.pos.x && p.pos.x < met.pos.x + met.radius{
-			if met.pos.y - met.radius < p.pos.y && p.pos.y < met.pos.y + met.radius{
-				return true
-			}
+		if circle_is_in_cirle(met.pos, met.radius, p.pos, player_r){
+			return true
 		}		
 	}
 	return false
 }
 
 struct Laser{
-	is_orbite		bool
+	name Attaques_name
 	mut:
 		rotation	f64
 		temps_tour	f64
 		cooldown	int
 		time		int
+	// name	rotation	temps_tour cooldown	time
 }
 
 fn (mut laser Laser) update(mut app App){

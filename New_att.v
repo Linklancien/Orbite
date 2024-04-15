@@ -1,19 +1,21 @@
 import rand
+import math
 
 fn (mut app App) new_att(){
+	mut count := 0
 	match rand.int_in_range(0, 50) or{0}{
 		1{
-			mut count := 0
 			for attaque in app.attaques{
-				if attaque.is_orbite{
+				if attaque.name == Attaques_name.orbs_annil{
 					count += 1
-					if count + 1 < app.center_list.len {
+					if count + 1 > app.center_list.len {
 						break
 					}
 				}
 			}
 			if count + 1 < app.center_list.len {
-				app.attaques  << Orbs_annil{true, [rand.int_in_range(0, app.center_list.len) or {0}], 200, 50}
+				// name	orbs	cooldown	time
+				app.attaques  << Orbs_annil{Attaques_name.orbs_annil, [rand.int_in_range(0, app.center_list.len) or {0}], 200, 50}	
 			}
 		}
 		2{
@@ -49,10 +51,31 @@ fn (mut app App) new_att(){
 
 			norm := mult(100, (app.players_list[p_cible].pos - pos).normalize())
 
-			app.attaques  << Meteor{false, norm, radius, pos,  200, 500}
+			//name	norm	radius	pos	cooldown	time
+			app.attaques  << Meteor{Attaques_name.meteor, norm, radius, pos,  200, 500}
 		}
 		3{
-			app.attaques  << Laser{false, 0, 25, 200, 800}
+			for attaque in app.attaques{
+				if attaque.name == Attaques_name.laser{
+					count += 1
+					if count > 1 {
+						break
+					}
+				}
+			}
+			if count + 1 < 1 {
+				nb := rand.int_in_range(1, (int(app.score[0]/10 +1)-app.attaques.len)) or{1}
+
+				// name	rotation	temps_tour cooldown	time
+				rota := rand.f64_in_range(0, 2*math.pi) or {0}
+				temps_tour := 2*math.pi*app.center_list[0].radius/rand.f64_in_range(150, 400) or {100}
+				cooldown := rand.int_in_range(100, 200) or {100}
+				time_laser := rand.int_in_range(400, 800) or {100}
+
+				for laser_num in 0..nb{
+					app.attaques  << Laser{Attaques_name.laser, rota+(math.pi/2)*laser_num, temps_tour, cooldown, time_laser}
+				}
+			}
 		}
 		else{}
 	}

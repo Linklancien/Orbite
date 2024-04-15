@@ -40,3 +40,15 @@ fn (vec Vector) point_is_in_cirle(center Vector, radius f64) bool{
 		return false
 	}
 }
+
+fn circle_is_in_cirle(c1 Vector, r1 f64, c2 Vector, r2 f64) bool{
+	comb_c := c1 - c2
+	radius_square := r1*r1 + r2*r2
+	
+	if comb_c.square_len() < radius_square{
+		return true
+	}
+	else {
+		return false
+	}
+}
