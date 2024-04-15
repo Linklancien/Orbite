@@ -52,7 +52,7 @@ fn (mut app App) new_att(){
 		// 	app.attaques  << Meteor{false, norm, radius, pos,  200, 500}
 		// }
 		3{
-			app.attaques  << Laser{false, 0, 50, 200, 800}
+			app.attaques  << Laser{false, 0, 25, 200, 800}
 		}
 		else{}
 	}

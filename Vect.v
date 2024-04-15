@@ -77,18 +77,3 @@ fn (vec1 Vector) - (vec2 Vector) Vector {
 	return Vector{vec1.x - vec2.x, vec1.y - vec2.y, vec1.z - vec2.z}
 }
 
-fn point_is_in_cube(is_in_min Vector, is_in_max Vector, in_min Vector, in_max Vector) bool{
-	is_min_x := in_min.x < is_in_max.x
-	is_min_y := in_min.y < is_in_max.y
-	is_min_z := in_min.z < is_in_max.z
-
-	is_max_x := in_max.x > is_in_min.x
-	is_max_y := in_max.y > is_in_min.y
-	is_max_z := in_max.z > is_in_min.z
-	if is_min_x && is_max_x && is_min_y && is_max_y && is_min_z && is_max_z {
-		return true
-	}
-	else {
-		return false
-	}
-}

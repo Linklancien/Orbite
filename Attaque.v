@@ -148,7 +148,7 @@ fn (laser Laser) render(app App){
 
 fn (laser Laser) check(app App, p Player) bool{
 	if laser.cooldown == 0{
-		if app.center_list[p.center].dist.turn(p.rotation) == app.center_list[p.center].dist.turn(laser.rotation){
+		if app.center_list[p.center].dist.turn(p.rotation).point_is_in_cirle(app.center_list[p.center].dist.turn(laser.rotation) ,player_r){
 			return true
 		}
 	}
