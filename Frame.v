@@ -5,21 +5,26 @@ const pos_x = [-100, 100]
 const color_player = [gx.red, gx.blue]
 
 fn on_frame(mut app App){
-	if app.game{
-		if app.attaques.len < int(app.score[0]/10 +1){
-			app.new_att()
-		}
+	if app.death_screen_time != 0{
+		if app.game{
+			if app.attaques.len < int(app.score[0]/10 +1){
+				app.new_att()
+			}
 
-		for mut p in app.players_list{
-			p.update(app)
-		}
-		for mut att in app.attaques{
-			att.update(mut app)
-		}
+			for mut p in app.players_list{
+				p.update(app)
+			}
+			for mut att in app.attaques{
+				att.update(mut app)
+			}
 
-		app. delt_att()
-		app.check_death()
-
+			app. delt_att()
+			app.check_death()
+		}
+		else{
+			app.death_screen_time -= 1
+		}
+		
 		app.gg.begin()
 		
 		for center in app.center_list{

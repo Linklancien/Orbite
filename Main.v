@@ -20,6 +20,7 @@ mut:
 	gg &gg.Context = unsafe { nil }
 
 	game		bool
+	death_screen_time int
 	
 	win_width	f64
 	win_height	f64

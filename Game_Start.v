@@ -21,6 +21,7 @@ fn (mut app App) game_start(){
 		p.center_changer(0, app)
 	}
 
+	app.death_screen_time = 35
 	app.game = true
 	app.score[0] = 0
 }
