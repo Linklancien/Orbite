@@ -75,7 +75,7 @@ fn (mut app App) new_att(){
 
 				temps_tour := 2*f64(sens)*math.pi*app.center_list[0].radius/rand.f64_in_range(150, 400) or {100}
 				cooldown := rand.int_in_range(100, 200) or {100}
-				time_laser := rand.int_in_range(400, 600) or {100}
+				time_laser := rand.int_in_range(300, 500) or {100}
 
 				for laser_num in 0..nb{
 					// name	rotation	temps_tour cooldown	time
@@ -84,21 +84,25 @@ fn (mut app App) new_att(){
 			}
 		}
 		4{
-			radius := rand.f64_in_range(10, 50)	or{0}
+			nb := int(app.score[0]/10 +1)-app.attaques.len
 
 			center := rand.int_in_range(0, app.center_list.len) or {0}
-
-			mut cible :=(app.center_list[center].dist).turn(rand.f64_in_range(0, math.pi*2) or {0})
-
-			direction := (cible).normalize()
-
-			cible = cible + Vector{app.win_width/2, app.win_height/2, 0} 
 
 			cooldown := rand.int_in_range(100, 200)	or {100}
 			time_missile := rand.int_in_range(400, 600) or {100}
 
-			// name	radius	pos	cible	direction cooldown	time
-			app.attaques  << Missile{Attaques_name.missile, radius, Vector{app.win_width/2, app.win_height/2, 0}, cible, direction, cooldown, time_missile}
+			for _ in 0..nb{
+				radius := rand.f64_in_range(10, 40)	or{0}
+
+				mut cible :=(app.center_list[center].dist).turn(rand.f64_in_range(0, math.pi*2) or {0})
+
+				direction := (cible).normalize()
+
+				cible = cible + Vector{app.win_width/2, app.win_height/2, 0}
+
+				// name	radius	pos	cible	direction cooldown	time
+				app.attaques  << Missile{Attaques_name.missile, radius, Vector{app.win_width/2, app.win_height/2, 0}, cible, direction, cooldown, time_missile}
+			}
 		}
 		else{}
 	}
