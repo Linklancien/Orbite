@@ -5,11 +5,13 @@ import gx
 fn (mut app App) game_start(){
 	app.attaques = []
 
+	nb_center := 3
+
 	app.center_list =  [Center{Vector{app.win_width/2, app.win_height/2, 0}, Vector{0, 100, 0}, 100}]
-	app.center_list << Center{Vector{app.win_width/2, app.win_height/2, 0}, Vector{0, 150, 0}, 150}
-	app.center_list << Center{Vector{app.win_width/2, app.win_height/2, 0}, Vector{0, 200, 0}, 200}
-	app.center_list << Center{Vector{app.win_width/2, app.win_height/2, 0}, Vector{0, 250, 0}, 250}
-	app.center_list << Center{Vector{app.win_width/2, app.win_height/2, 0}, Vector{0, 300, 0}, 300}
+	for nb in 1..nb_center{
+		change := 100+50*nb
+		app.center_list << Center{Vector{app.win_width/2, app.win_height/2, 0}, Vector{0, change, 0}, change}
+	}
 
 	app.players_list = [Player{Vector{0, 0, 0}, 0, 1, 0, true, gx.red}]
 	rota := 2*math.pi/f64(app.player_nb)

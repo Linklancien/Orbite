@@ -9,16 +9,16 @@ interface Attaques {
 		cooldown	int
 		time		int
 		update(mut app App)
-	
-	
 }
 
 enum Attaques_name {
 	orbs_annil
 	meteor
 	laser
+	missile
 }
 
+// Orbs annil
 struct Orbs_annil{
 	name	Attaques_name 
 	orbs		[]int
@@ -62,6 +62,7 @@ fn (ann Orbs_annil) check(app App, p Player) bool{
 	return false
 }
 
+// Meteor
 struct Meteor{
 	name	Attaques_name
 	norm		Vector
@@ -119,6 +120,7 @@ fn (met Meteor) check(app App, p Player) bool{
 	return false
 }
 
+// Laser
 struct Laser{
 	name Attaques_name
 	mut:
@@ -144,7 +146,7 @@ fn (laser Laser) render(app App){
 	if laser.cooldown == 0{
 		color = gx.red
 	}
-	else if laser.cooldown %20 -10 < 0{
+	else if laser.cooldown %20 < 10{
 		color = gx.white
 	}
 	pos := Vector{f32(app.win_width/2), f32(app.win_height/2), 0} + mult(1.2, app.center_list[app.center_list.len-1].dist.turn(laser.rotation))
@@ -156,6 +158,58 @@ fn (laser Laser) render(app App){
 fn (laser Laser) check(app App, p Player) bool{
 	if laser.cooldown == 0{
 		if app.center_list[p.center].dist.turn(p.rotation).point_is_in_cirle(app.center_list[p.center].dist.turn(laser.rotation) ,player_r){
+			return true
+		}
+	}
+	return false
+}
+
+// Missile
+struct Missile{
+	name	Attaques_name
+	radius	f64
+	mut:
+		pos			Vector
+		cible 		Vector
+		direction	Vector
+		cooldown	int
+		time		int
+	// name	radius	pos	cible	direction cooldown	time
+}
+
+fn (mut miss Missile) update(mut app App){
+	if miss.cooldown > 0{
+		miss.cooldown -= 1
+	}
+	else if miss.time > 0{
+		if miss.pos.point_is_in_cube_center(miss.cible, 2){
+			miss.time -= 1
+		}else{
+			miss.pos = miss.pos + mult(10, miss.direction)
+		}
+	}
+}
+
+fn (miss Missile) render(app App){
+	mut color := gx.gray
+	if miss.cooldown == 0{
+		color = gx.red
+	}
+	else if miss.cooldown %20 < 10{
+		color = gx.white
+	}
+	// Cible
+	cible_x := f32(miss.cible.x)
+	cible_y := f32(miss.cible.y)
+	app.gg.draw_circle_empty(cible_x, cible_y, 10, gx.white)
+
+	// Missile
+	app.gg.draw_circle_filled(f32(miss.pos.x), f32(miss.pos.y), f32(miss.radius), color)
+}
+
+fn (miss Missile) check(app App, p Player) bool{
+	if miss.cooldown == 0{
+		if circle_is_in_cirle(miss.pos, miss.radius, p.pos, player_r){
 			return true
 		}
 	}
