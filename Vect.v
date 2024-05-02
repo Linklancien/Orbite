@@ -8,6 +8,7 @@ struct Vector {
 		y f64
 		z f64
 }
+const vector_null = Vector{0,0,0}
 
 // FONCTIONS POUR LES VECTEURS
 @[inline]

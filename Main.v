@@ -25,6 +25,7 @@ mut:
 	win_width	f64
 	win_height	f64
 	text_cfg	gx.TextCfg
+	bouton_cfg	gx.TextCfg
 
 	players_list	[]Player
 	player_nb		int
@@ -33,6 +34,7 @@ mut:
 	attaques			[]Attaques
 
 	score	[]int
+	bouton_list []Vector
 }
 
 fn main() {
@@ -66,6 +68,10 @@ fn on_init(mut app App) {
 	app.win_height 		= size.height
 
 	app.text_cfg = gx.TextCfg{gx.black, 16, .left, .top, 100, "", false, false, false}
+	app.bouton_cfg = gx.TextCfg{gx.black, 16, .center, .middle, 100, "", false, false, false}
+
+	// BOUTONS
+	app.bouton_list << [Vector{app.win_width/2 - 100, app.win_height/2  - 30, 0}, Vector{app.win_width/2 + 100, app.win_height/2  - 30, 0}]
 
 	app.gg.end()
 }
@@ -133,6 +139,14 @@ fn on_event(e &gg.Event, mut app App) {
 					}
 				}
 				else {}
+			}
+		}
+		.mouse_down{
+			match e.mouse_button {
+				.left{
+					app.check_boutons(e.mouse_x, e.mouse_y)
+				}
+				else{}
 			}
 		}
 		else{}

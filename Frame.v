@@ -1,7 +1,7 @@
 import gx
 
 const list_key = ["s d f", "j k l"]
-const pos_x = [-100, 100]
+const pos_x = [-200, 200]
 const color_player = [gx.red, gx.blue]
 
 fn on_frame(mut app App){
@@ -53,7 +53,15 @@ fn (app App) lobby(){
 
 	app.text_rect_render(int(app.win_width/2), int(app.win_height/2), "Score: ${app.score[0]}")
 
-	app.text_rect_render(int(app.win_width/2), int(app.win_height/2) - 40, "t- Players nb: ${app.player_nb} y+")
+	app.text_rect_render(int(app.win_width/2), int(app.win_height/2) - 40, "Players nb: ${app.player_nb}")
+
+	for ind, circle_pos in app.bouton_list{
+		x := int(circle_pos.x)
+		y := int(circle_pos.y)
+		app.gg.draw_circle_filled(x, y, boutons_radius, gx.gray)
+		app.gg.draw_text(x, y, text_boutons[ind], app.bouton_cfg)
+	}
+
 
 	app.text_rect_render(int(app.win_width/2), int(app.win_height/2) + 40, "Press space")
 
