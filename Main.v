@@ -21,6 +21,10 @@ mut:
 
 	game		bool
 	death_screen_time int
+
+	// imput_action
+	list_imput_action	[]Actions
+	imput_action_change	Actions
 	
 	win_width	f64
 	win_height	f64
@@ -31,10 +35,10 @@ mut:
 	player_nb		int
 	center_list		[]Center
 
-	attaques			[]Attaques
+	attaques		[]Attaques
 
-	score	[]int
-	bouton_list []Vector
+	score			[]int
+	bouton_list 	[]Vector
 }
 
 fn main() {
@@ -53,6 +57,7 @@ fn main() {
 		event_fn: on_event
 		sample_count: 4
 	)
+	app.list_imput_action_init()
 	app.gg.run()
 }
 
@@ -79,67 +84,7 @@ fn on_init(mut app App) {
 fn on_event(e &gg.Event, mut app App) {
 	match e.typ {
 		.key_down {
-			match e.key_code {
-				.escape {
-					app.gg.quit()
-				}
-				.s {
-					if app.game{
-						if app.players_list[0].center > 0 && app.game{
-							app.players_list[0].center_changer(-1 ,app)
-						}
-					}
-				}
-				.d {
-					if app.game{
-						if app.players_list[0].center < app.center_list.len -1{
-							app.players_list[0].center_changer(1 ,app)
-						}
-					}
-				}
-				.f {
-					if app.game{
-						app.players_list[0].temps_tour = -app.players_list[0].temps_tour
-					}
-					
-				}
-				.j {
-					if app.player_nb > 1 && app.game{
-						if app.players_list[1].center > 0{
-							app.players_list[1].center_changer(-1 ,app)
-						}
-					}	
-				}
-				.k {
-					if app.player_nb > 1 && app.game{
-						if app.players_list[1].center < app.center_list.len -1{
-							app.players_list[1].center_changer(1 ,app)
-						}
-					}
-					
-				}
-				.l {
-					if app.player_nb > 1 && app.game{
-						app.players_list[1].temps_tour = -app.players_list[1].temps_tour
-					}
-				}
-				.y {
-					if app.player_nb < nb_player_max && !app.game{
-						app.player_nb += 1
-					}
-				}
-				.t {
-					if app.player_nb > 1 && !app.game{
-						app.player_nb -= 1
-					}					
-				}
-				.space {
-					if !app.game{
-						app.game_start()
-					}
-				}
-				else {}
-			}
+			app.imput(int(e.key_code))
 		}
 		.mouse_down{
 			match e.mouse_button {
