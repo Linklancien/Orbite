@@ -2,49 +2,54 @@ import gx
 
 const list_key = ["s d f", "j k l"]
 const pos_x = [-200, 200]
-const color_player = [gx.red, gx.blue]
+const color_player = [gx.cyan, gx.dark_blue]
 
 fn on_frame(mut app App){
-	if app.death_screen_time != 0{
-		if app.game{
-			if app.attaques.len < int(app.score[0]/10 +1){
-				app.new_att()
-			}
+	if app.pause{
+		app.settings_render()
+	}
+	else{	
+		if app.death_screen_time != 0{
+			if app.game{
+				if app.attaques.len < int(app.score[0]/10 +1){
+					app.new_att()
+				}
 
-			for mut p in app.players_list{
-				p.update(app)
-			}
-			for mut att in app.attaques{
-				att.update(mut app)
-			}
+				for mut p in app.players_list{
+					p.update(app)
+				}
+				for mut att in app.attaques{
+					att.update(mut app)
+				}
 
-			app. delt_att()
-			app.check_death()
+				app. delt_att()
+				app.check_death()
+			}
+			else{
+				app.death_screen_time -= 1
+			}
+			
+			app.gg.begin()
+			
+			for center in app.center_list{
+				center.render(app, gx.green)
+			}
+			for p in app.players_list{
+				p.render(app)
+			}
+			for att in app.attaques{
+				att.render(app)
+			}
+			
+			app.gg.draw_rounded_rect_filled(int(app.win_width/2), 15, 60, 25, 5, gx.gray)
+			app.gg.draw_text(int(app.win_width/2), 20, "Score: ${app.score[0]}", app.text_cfg)
+			
+			
+			app.gg.end()
 		}
 		else{
-			app.death_screen_time -= 1
+			app.lobby()
 		}
-		
-		app.gg.begin()
-		
-		for center in app.center_list{
-			center.render(app, gx.green)
-		}
-		for p in app.players_list{
-			p.render(app)
-		}
-		for att in app.attaques{
-			att.render(app)
-		}
-		
-		app.gg.draw_rounded_rect_filled(int(app.win_width/2), 15, 60, 25, 5, gx.gray)
-		app.gg.draw_text(int(app.win_width/2), 20, "Score: ${app.score[0]}", app.text_cfg)
-    	
-		
-		app.gg.end()
-	}
-	else{
-		app.lobby()
 	}
 }
 

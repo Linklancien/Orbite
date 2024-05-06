@@ -19,11 +19,13 @@ struct App {
 mut:
 	gg &gg.Context = unsafe { nil }
 
-	game		bool
+	pause			bool
+	game			bool
 	death_screen_time int
 
 	// imput_action
 	list_imput_action	[]Actions
+	list_key_code_action	[]int
 	imput_action_change	Actions
 	
 	win_width	f64
@@ -42,7 +44,6 @@ mut:
 }
 
 fn main() {
-
 	mut app := &App{}
 	app.gg = gg.new_context(
 		fullscreen: false
@@ -57,7 +58,8 @@ fn main() {
 		event_fn: on_event
 		sample_count: 4
 	)
-	app.list_imput_action_init()
+	
+	app.list_imput_action_key_code_init()
 	app.gg.run()
 }
 

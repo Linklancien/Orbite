@@ -13,11 +13,11 @@ fn (mut app App) game_start(){
 		app.center_list << Center{Vector{app.win_width/2, app.win_height/2, 0}, Vector{0, change, 0}, change}
 	}
 
-	app.players_list = [Player{Vector{0, 0, 0}, 0, 1, 0, true, gx.red}]
+	app.players_list = [Player{Vector{0, 0, 0}, 0, 1, 0, true, gx.cyan}]
 	rota := 2*math.pi/f64(app.player_nb)
 	mut nb := 1
 	for app.players_list.len < app.player_nb{
-		app.players_list << Player{Vector{0, 0, 0}, rota*nb, 1, 0, true, gx.blue}
+		app.players_list << Player{Vector{0, 0, 0}, rota*nb, 1, 0, true, gx.dark_blue}
 		nb += 1
 	}
 	
