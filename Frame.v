@@ -6,7 +6,9 @@ const color_player = [gx.cyan, gx.dark_blue]
 
 fn on_frame(mut app App){
 	if app.pause{
+		app.gg.begin()
 		app.settings_render()
+		app.gg.end()
 	}
 	else{	
 		if app.death_screen_time != 0{
