@@ -19,6 +19,7 @@ enum Actions {
 }
 
 const key_code_name := {
+	0	: ""
 	32	: "space"
 	39	: "apostrophe"
 	44	: "comma"	//,
@@ -144,45 +145,45 @@ const key_code_name := {
 fn (mut app App) list_imput_action_key_code_init(){
 	// 348
 	app.list_imput_action = []Actions{len: 348, init: Actions.no}
-	app.list_key_code_action = []int{len: actions_names.len, init: 0}
+	app.list_action_key_code = []int{len: actions_names.len, init: 0}
 
 	// Quit
 	app.list_imput_action[int(gg.KeyCode.f4)] = Actions.quit
 
-	app.list_key_code_action[1] = int(gg.KeyCode.f4)
+	app.list_action_key_code[1] = int(gg.KeyCode.f4)
 
 	// Player 0
 	app.list_imput_action[int(gg.KeyCode.s)] = Actions.dim_center_p0
 	app.list_imput_action[int(gg.KeyCode.d)] = Actions.aug_center_p0
 	app.list_imput_action[int(gg.KeyCode.f)] = Actions.change_sens_p0
 
-	app.list_key_code_action[2] = int(gg.KeyCode.s)
-	app.list_key_code_action[3] = int(gg.KeyCode.d)
-	app.list_key_code_action[4] = int(gg.KeyCode.f)
+	app.list_action_key_code[2] = int(gg.KeyCode.s)
+	app.list_action_key_code[3] = int(gg.KeyCode.d)
+	app.list_action_key_code[4] = int(gg.KeyCode.f)
 
 	// Player 1
 	app.list_imput_action[int(gg.KeyCode.u)] = Actions.dim_center_p1
 	app.list_imput_action[int(gg.KeyCode.i)] = Actions.aug_center_p1
 	app.list_imput_action[int(gg.KeyCode.o)] = Actions.change_sens_p1
 
-	app.list_key_code_action[5] = int(gg.KeyCode.u)
-	app.list_key_code_action[6] = int(gg.KeyCode.i)
-	app.list_key_code_action[7] = int(gg.KeyCode.o)
+	app.list_action_key_code[5] = int(gg.KeyCode.u)
+	app.list_action_key_code[6] = int(gg.KeyCode.i)
+	app.list_action_key_code[7] = int(gg.KeyCode.o)
 
 	// Nb players
 	app.list_imput_action[int(gg.KeyCode.t)] = Actions.dim_p_nb
 	app.list_imput_action[int(gg.KeyCode.y)] = Actions.aug_p_nb
 
-	app.list_key_code_action[8] = int(gg.KeyCode.t)
-	app.list_key_code_action[9] = int(gg.KeyCode.y)
+	app.list_action_key_code[8] = int(gg.KeyCode.t)
+	app.list_action_key_code[9] = int(gg.KeyCode.y)
 
 	// Start
 	app.list_imput_action[int(gg.KeyCode.space)] = Actions.start
-	app.list_key_code_action[10] = int(gg.KeyCode.space)
+	app.list_action_key_code[10] = int(gg.KeyCode.space)
 
 	// Pause
 	app.list_imput_action[int(gg.KeyCode.escape)] = Actions.pause
-	app.list_key_code_action[11] = int(gg.KeyCode.escape)
+	app.list_action_key_code[11] = int(gg.KeyCode.escape)
 }
 
 fn (mut app App) imput(index int){
@@ -190,8 +191,25 @@ fn (mut app App) imput(index int){
 		app.imput_action(index)
 	}
 	else{
+		// Change old
+		// Set the old imput for the changing action to no
+		index_old_key	:= app.list_action_key_code[int(app.imput_action_change)]
+		if index == index_old_key {
+			app.list_imput_action[index_old_key] = Actions.no
+		}
+		else{
+			app.list_imput_action[index_old_key] = Actions.no
+			old_action := app.list_imput_action[index_old_key]
+			app.list_action_key_code[int(old_action)] = 0
+		}
+
+		// New
+		// Change to match the imput with what action it do
 		app.list_imput_action[index] = app.imput_action_change
-		app.list_key_code_action[int(app.imput_action_change)] = index
+		// Change to match action to what is the imput that triger it
+		app.list_action_key_code[int(app.imput_action_change)] = index
+
+		// Reset imput_action_change
 		app.imput_action_change = Actions.no
 	}
 }
@@ -201,7 +219,7 @@ fn (mut app App) settings_render(){
 		if ind < actions_names.len - 1 {
 			x := int(app.win_width/2)
 			y := int(100 + ind * 40)
-			app.text_rect_render(x, y, (actions_names[ind] + ": " + key_code_name[app.list_key_code_action[ind]]))
+			app.text_rect_render(x, y, (actions_names[ind] + ": " + key_code_name[app.list_action_key_code[ind]]))
 
 			x2 := int(3*app.win_width/4)
 			app.gg.draw_circle_filled(x2, y + 15, boutons_radius, gx.gray)

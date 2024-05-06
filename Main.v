@@ -25,7 +25,7 @@ mut:
 
 	// imput_action
 	list_imput_action	[]Actions
-	list_key_code_action	[]int
+	list_action_key_code	[]int
 	imput_action_change	Actions
 
 	mouse_x		f32
