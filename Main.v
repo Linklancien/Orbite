@@ -27,6 +27,9 @@ mut:
 	list_imput_action	[]Actions
 	list_key_code_action	[]int
 	imput_action_change	Actions
+
+	mouse_x		f32
+	mouse_y		f32
 	
 	win_width	f64
 	win_height	f64
@@ -89,9 +92,11 @@ fn on_event(e &gg.Event, mut app App) {
 			app.imput(int(e.key_code))
 		}
 		.mouse_down{
+			app.mouse_x	= e.mouse_x
+			app.mouse_y	= e.mouse_y
 			match e.mouse_button {
 				.left{
-					app.check_boutons(e.mouse_x, e.mouse_y)
+					app.check_boutons()
 				}
 				else{}
 			}

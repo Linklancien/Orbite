@@ -1,4 +1,5 @@
 import gg
+import gx
 
 const actions_names = ["None", "Quit the game", "- center player 0", "- center player 0", "+ center player 0", "Change sens player 0", "- center player 1", "+ center player 1", "Change sens player 1", "+ players nbs", "- players nbs", "Start the game", "Pause"]
 
@@ -201,6 +202,9 @@ fn (mut app App) settings_render(){
 			x := int(app.win_width/2)
 			y := int(100 + ind * 40)
 			app.text_rect_render(x, y, (actions_names[ind] + ": " + key_code_name[app.list_key_code_action[ind]]))
+
+			x2 := int(3*app.win_width/4)
+			app.gg.draw_circle_filled(x2, y + 15, boutons_radius, gx.gray)
 		}
 	}
 }

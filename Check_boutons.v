@@ -1,20 +1,37 @@
 const boutons_radius := 10
 const text_boutons := ["-", "+"]
 
-fn (mut app App) check_boutons(x_mouse f32, y_mouse f32){
-	mouse_pos := Vector{f64(x_mouse), f64(y_mouse), 0}
+fn (mut app App) check_boutons(){
+	mouse_pos := Vector{f64(app.mouse_x), f64(app.mouse_y), 0}
 	mut circle_pos := app.bouton_list[0]
-	// Sup Player
-	if mouse_pos.point_is_in_cirle(circle_pos, boutons_radius){
-		if app.player_nb > 1 && !app.game{
-			app.player_nb -= 1
+	
+	if app.pause{
+		// Check
+		for ind in 1..10{
+			y := int(100 + ind * 40)
+			circle_pos = Vector{f64(3*app.win_width/4), y, 0}
+			if mouse_pos.point_is_in_cirle(circle_pos, boutons_radius){
+				app.imput_action_change = unsafe{Actions(ind)}
+				dump("Change")
+				break
+			}
 		}
+		
+
 	}
-	// Ad player
-	circle_pos = app.bouton_list[1]
-	if mouse_pos.point_is_in_cirle(circle_pos, boutons_radius){
-		if app.player_nb < nb_player_max && !app.game{
-			app.player_nb += 1
+	else if !app.game{
+		// Sup Player
+		if mouse_pos.point_is_in_cirle(circle_pos, boutons_radius){
+			if app.player_nb > 1{
+				app.player_nb -= 1
+			}
+		}
+		// Ad player
+		circle_pos = app.bouton_list[1]
+		if mouse_pos.point_is_in_cirle(circle_pos, boutons_radius){
+			if app.player_nb < nb_player_max{
+				app.player_nb += 1
+			}
 		}
 	}
 }
