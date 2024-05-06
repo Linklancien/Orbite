@@ -194,14 +194,11 @@ fn (mut app App) imput(index int){
 		// Change old
 		// Set the old imput for the changing action to no
 		index_old_key	:= app.list_action_key_code[int(app.imput_action_change)]
-		if index == index_old_key {
-			app.list_imput_action[index_old_key] = Actions.no
-		}
-		else{
-			app.list_imput_action[index_old_key] = Actions.no
-			old_action := app.list_imput_action[index_old_key]
-			app.list_action_key_code[int(old_action)] = 0
-		}
+		app.list_imput_action[index_old_key] = Actions.no
+		// Set the old action linked to the imput (index) to 0
+		old_action := app.list_imput_action[index]
+		app.list_action_key_code[int(old_action)] = 0
+
 
 		// New
 		// Change to match the imput with what action it do
