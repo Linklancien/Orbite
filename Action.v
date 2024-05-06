@@ -196,7 +196,7 @@ fn (mut app App) imput(index int){
 }
 
 fn (mut app App) settings_render(){
-	for ind in 0..10{
+	for ind in 1..10{
 		if ind < actions_names.len - 1 {
 			x := int(app.win_width/2)
 			y := int(100 + ind * 40)

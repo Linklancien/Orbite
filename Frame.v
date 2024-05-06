@@ -1,6 +1,5 @@
 import gx
 
-const list_key = ["s d f", "j k l"]
 const pos_x = [-200, 200]
 const color_player = [gx.cyan, gx.dark_blue]
 
@@ -75,7 +74,9 @@ fn (app App) lobby(){
 	for p_nb in 0..app.player_nb{
 		x := int(app.win_width/2) + pos_x[p_nb]
 
-		app.text_rect_render(x, int(app.win_height/2), list_key[p_nb])
+		str := key_code_name[app.list_key_code_action[2+3*p_nb]] + " " + key_code_name[app.list_key_code_action[3+3*p_nb]] + " " + key_code_name[app.list_key_code_action[4+3*p_nb]]
+
+		app.text_rect_render(x, int(app.win_height/2), str)
 		app.gg.draw_circle_filled(x, f32(app.win_height/2) - 40, 10, color_player[p_nb])
 	}
 
