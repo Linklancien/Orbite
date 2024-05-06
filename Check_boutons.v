@@ -8,11 +8,11 @@ fn (mut app App) check_boutons(){
 	if app.pause{
 		// Check
 		for ind in 1..10{
-			y := int(100 + ind * 40)
+			y := 115 + ind * 40
 			circle_pos = Vector{f64(3*app.win_width/4), y, 0}
 			if mouse_pos.point_is_in_cirle(circle_pos, boutons_radius){
 				app.imput_action_change = unsafe{Actions(ind)}
-				dump("Change")
+				print("Change")
 				break
 			}
 		}
