@@ -69,7 +69,7 @@ fn (app App) lobby(){
 	}
 
 
-	app.text_rect_render(int(app.win_width/2), int(app.win_height/2) + 40, "Press space")
+	app.text_rect_render(int(app.win_width/2), int(app.win_height/2) + 40, "Press " + key_code_name[app.list_action_key_code[Actions.start]])
 
 	for p_nb in 0..app.player_nb{
 		x := int(app.win_width/2) + pos_x[p_nb]

@@ -19,31 +19,42 @@ struct App {
 mut:
 	gg &gg.Context = unsafe { nil }
 
-	pause			bool
-	game			bool
-	death_screen_time int
-
-	// imput_action
-	list_imput_action	[]Actions
-	list_action_key_code	[]int
-	imput_action_change	Actions
-
-	mouse_x		f32
-	mouse_y		f32
-	
+	// Caracteristiques window
 	win_width	f64
 	win_height	f64
+
+	// UI
+	// Police
 	text_cfg	gx.TextCfg
 	bouton_cfg	gx.TextCfg
-
-	players_list	[]Player
-	player_nb		int
-	center_list		[]Center
-
-	attaques		[]Attaques
-
-	score			[]int
+	// Boutons
 	bouton_list 	[]Vector
+
+	// Pause
+	pause			bool
+	pause_scroll	int
+
+	// Is game running
+	game			bool
+	death_screen_time int	// Delay to see what kill you
+	
+	// imput_action
+	list_imput_action		[]Actions
+	list_action_key_code	[]int
+	imput_action_change		Actions
+
+	// Mouse position
+	mouse_x		f32
+	mouse_y		f32
+
+	// Player
+	player_nb		int
+	players_list	[]Player
+	center_list		[]Center
+	score			[]int
+
+	// Attaques
+	attaques		[]Attaques
 }
 
 fn main() {
