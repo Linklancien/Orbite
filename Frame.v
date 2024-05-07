@@ -1,7 +1,6 @@
 import gx
 
 const pos_x = [-200, 200]
-const color_player = [gx.cyan, gx.dark_blue]
 
 fn on_frame(mut app App){
 	if app.pause{
@@ -70,15 +69,22 @@ fn (app App) lobby(){
 
 
 	app.text_rect_render(int(app.win_width/2), int(app.win_height/2) + 40, "Press " + key_code_name[app.list_action_key_code[Actions.start]])
+	mut y := 0
+	if app.player_nb <= 2{
+		y = int(app.win_height/2)
+	}
+	else{
+		y = int(app.win_height/3)
+	}
 
 	for p_nb in 0..app.player_nb{
-		x := int(app.win_width/2) + pos_x[p_nb]
-		y := int(app.win_height/2)
+		x := int(app.win_width/2) + pos_x[p_nb%2]
+		new_y := y
 
 		str := key_code_name[app.list_action_key_code[6+3*p_nb]] + " " + key_code_name[app.list_action_key_code[7+3*p_nb]] + " " + key_code_name[app.list_action_key_code[8+3*p_nb]]
 
-		app.text_rect_render(x, y, str)
-		app.gg.draw_circle_filled(x, y - 40, 10, color_player[p_nb])
+		app.text_rect_render(x, new_y, str)
+		app.gg.draw_circle_filled(x, new_y - 40, 10, color_player[p_nb])
 	}
 
 	// app.gg.draw_circle_filled(f32(app.win_width/2), f32(app.win_height/2), 10, gx.blue)

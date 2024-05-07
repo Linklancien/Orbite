@@ -1,7 +1,7 @@
 import gg
 import gx
 
-const actions_names = ["None", "Quit the game", "Start the game", "Pause", "+ players nbs", "- players nbs", "- center player 0", "+ center player 0", "Change sens player 0", "- center player 1", "+ center player 1", "Change sens player 1"]
+const actions_names = ["None", "Quit the game", "Start the game", "Pause", "+ players nbs", "- players nbs", "- center player 0", "+ center player 0", "Change sens player 0", "- center player 1", "+ center player 1", "Change sens player 1", "- center player 3", "+ center player 2", "Change sens player 2", "- center player 3", "+ center player 3", "Change sens player 3"]
 
 enum Actions {
 	no				= 0
@@ -20,6 +20,13 @@ enum Actions {
 	aug_center_p1	= 10
 	change_sens_p1	= 11
 
+	dim_center_p2	= 12
+	aug_center_p2	= 13
+	change_sens_p2	= 14
+
+	dim_center_p3	= 15
+	aug_center_p3	= 16
+	change_sens_p3	= 17
 }
 
 const key_code_name := {
@@ -189,6 +196,24 @@ fn (mut app App) list_imput_action_key_code_init(){
 	app.list_action_key_code[5] = int(gg.KeyCode.u)
 	app.list_action_key_code[6] = int(gg.KeyCode.i)
 	app.list_action_key_code[7] = int(gg.KeyCode.o)
+
+	// Player 2
+	app.list_imput_action[int(gg.KeyCode.a)] = Actions.dim_center_p2
+	app.list_imput_action[int(gg.KeyCode.z)] = Actions.aug_center_p2
+	app.list_imput_action[int(gg.KeyCode.e)] = Actions.change_sens_p2
+
+	app.list_action_key_code[5] = int(gg.KeyCode.a)
+	app.list_action_key_code[6] = int(gg.KeyCode.z)
+	app.list_action_key_code[7] = int(gg.KeyCode.e)
+
+	// Player 3
+	app.list_imput_action[int(gg.KeyCode.w)] = Actions.dim_center_p3
+	app.list_imput_action[int(gg.KeyCode.x)] = Actions.aug_center_p3
+	app.list_imput_action[int(gg.KeyCode.c)] = Actions.change_sens_p3
+
+	app.list_action_key_code[5] = int(gg.KeyCode.w)
+	app.list_action_key_code[6] = int(gg.KeyCode.x)
+	app.list_action_key_code[7] = int(gg.KeyCode.c)
 }
 
 fn (mut app App) imput(index int){

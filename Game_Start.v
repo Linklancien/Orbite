@@ -2,6 +2,8 @@
 import math
 import gx
 
+const color_player = [gx.cyan, gx.dark_blue, gx.cyan, gx.dark_blue]
+
 fn (mut app App) game_start(){
 	app.attaques = []
 
@@ -13,11 +15,11 @@ fn (mut app App) game_start(){
 		app.center_list << Center{Vector{app.win_width/2, app.win_height/2, 0}, Vector{0, change, 0}, change}
 	}
 
-	app.players_list = [Player{Vector{0, 0, 0}, 0, 1, 0, true, gx.cyan}]
+	app.players_list = [Player{Vector{0, 0, 0}, 0, 1, 0, true, color_player[0]}]
 	rota := 2*math.pi/f64(app.player_nb)
 	mut nb := 1
 	for app.players_list.len < app.player_nb{
-		app.players_list << Player{Vector{0, 0, 0}, rota*nb, 1, 0, true, gx.dark_blue}
+		app.players_list << Player{Vector{0, 0, 0}, rota*nb, 1, 0, true, color_player[nb]}
 		nb += 1
 	}
 	
