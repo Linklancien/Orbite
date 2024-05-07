@@ -79,7 +79,10 @@ fn (app App) lobby(){
 
 	for p_nb in 0..app.player_nb{
 		x := int(app.win_width/2) + pos_x[p_nb%2]
-		new_y := y
+		mut new_y := y
+		if p_nb > 1{
+			new_y *= 2
+		}
 
 		str := key_code_name[app.list_action_key_code[6+3*p_nb]] + " " + key_code_name[app.list_action_key_code[7+3*p_nb]] + " " + key_code_name[app.list_action_key_code[8+3*p_nb]]
 

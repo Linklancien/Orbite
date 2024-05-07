@@ -184,36 +184,36 @@ fn (mut app App) list_imput_action_key_code_init(){
 	app.list_imput_action[int(gg.KeyCode.d)] = Actions.aug_center_p0
 	app.list_imput_action[int(gg.KeyCode.f)] = Actions.change_sens_p0
 
-	app.list_action_key_code[2] = int(gg.KeyCode.s)
-	app.list_action_key_code[3] = int(gg.KeyCode.d)
-	app.list_action_key_code[4] = int(gg.KeyCode.f)
+	app.list_action_key_code[6] = int(gg.KeyCode.s)
+	app.list_action_key_code[7] = int(gg.KeyCode.d)
+	app.list_action_key_code[8] = int(gg.KeyCode.f)
 
 	// Player 1
 	app.list_imput_action[int(gg.KeyCode.u)] = Actions.dim_center_p1
 	app.list_imput_action[int(gg.KeyCode.i)] = Actions.aug_center_p1
 	app.list_imput_action[int(gg.KeyCode.o)] = Actions.change_sens_p1
 
-	app.list_action_key_code[5] = int(gg.KeyCode.u)
-	app.list_action_key_code[6] = int(gg.KeyCode.i)
-	app.list_action_key_code[7] = int(gg.KeyCode.o)
+	app.list_action_key_code[9] = int(gg.KeyCode.u)
+	app.list_action_key_code[10] = int(gg.KeyCode.i)
+	app.list_action_key_code[11] = int(gg.KeyCode.o)
 
 	// Player 2
 	app.list_imput_action[int(gg.KeyCode.a)] = Actions.dim_center_p2
 	app.list_imput_action[int(gg.KeyCode.z)] = Actions.aug_center_p2
 	app.list_imput_action[int(gg.KeyCode.e)] = Actions.change_sens_p2
 
-	app.list_action_key_code[5] = int(gg.KeyCode.a)
-	app.list_action_key_code[6] = int(gg.KeyCode.z)
-	app.list_action_key_code[7] = int(gg.KeyCode.e)
+	app.list_action_key_code[12] = int(gg.KeyCode.a)
+	app.list_action_key_code[13] = int(gg.KeyCode.z)
+	app.list_action_key_code[14] = int(gg.KeyCode.e)
 
 	// Player 3
 	app.list_imput_action[int(gg.KeyCode.w)] = Actions.dim_center_p3
 	app.list_imput_action[int(gg.KeyCode.x)] = Actions.aug_center_p3
 	app.list_imput_action[int(gg.KeyCode.c)] = Actions.change_sens_p3
 
-	app.list_action_key_code[5] = int(gg.KeyCode.w)
-	app.list_action_key_code[6] = int(gg.KeyCode.x)
-	app.list_action_key_code[7] = int(gg.KeyCode.c)
+	app.list_action_key_code[15] = int(gg.KeyCode.w)
+	app.list_action_key_code[16] = int(gg.KeyCode.x)
+	app.list_action_key_code[17] = int(gg.KeyCode.c)
 }
 
 fn (mut app App) imput(index int){
