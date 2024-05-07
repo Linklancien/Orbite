@@ -73,11 +73,12 @@ fn (app App) lobby(){
 
 	for p_nb in 0..app.player_nb{
 		x := int(app.win_width/2) + pos_x[p_nb]
+		y := int(app.win_height/2)
 
-		str := key_code_name[app.list_action_key_code[2+3*p_nb]] + " " + key_code_name[app.list_action_key_code[3+3*p_nb]] + " " + key_code_name[app.list_action_key_code[4+3*p_nb]]
+		str := key_code_name[app.list_action_key_code[6+3*p_nb]] + " " + key_code_name[app.list_action_key_code[7+3*p_nb]] + " " + key_code_name[app.list_action_key_code[8+3*p_nb]]
 
-		app.text_rect_render(x, int(app.win_height/2), str)
-		app.gg.draw_circle_filled(x, f32(app.win_height/2) - 40, 10, color_player[p_nb])
+		app.text_rect_render(x, y, str)
+		app.gg.draw_circle_filled(x, y - 40, 10, color_player[p_nb])
 	}
 
 	// app.gg.draw_circle_filled(f32(app.win_width/2), f32(app.win_height/2), 10, gx.blue)

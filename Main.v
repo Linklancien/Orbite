@@ -4,7 +4,7 @@ import gg
 import gx
 
 const bg_color = gx.black
-const nb_player_max = 2
+const nb_player_max = 4
 
 //______________UI______________
 const colors = [gx.red, gx.blue]
@@ -112,6 +112,17 @@ fn on_event(e &gg.Event, mut app App) {
 				else{}
 			}
 		}
+		.mouse_scroll {
+            e.scroll_y{
+				if e.scroll_y > 0 && app.pause_scroll > 0{
+					app.pause_scroll -= 1
+					
+				}
+				else if e.scroll_y < 0 && app.pause_scroll < actions_names.len - 10{
+					app.pause_scroll += 1
+				}
+			}
+        }
 		else{}
 	}
 }

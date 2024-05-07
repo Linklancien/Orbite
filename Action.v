@@ -1,21 +1,25 @@
 import gg
 import gx
 
-const actions_names = ["None", "Quit the game", "- center player 0", "- center player 0", "+ center player 0", "Change sens player 0", "- center player 1", "+ center player 1", "Change sens player 1", "+ players nbs", "- players nbs", "Start the game", "Pause"]
+const actions_names = ["None", "Quit the game", "Start the game", "Pause", "+ players nbs", "- players nbs", "- center player 0", "+ center player 0", "Change sens player 0", "- center player 1", "+ center player 1", "Change sens player 1"]
 
 enum Actions {
 	no				= 0
 	quit			= 1
-	dim_center_p0	= 2
-	aug_center_p0	= 3
-	change_sens_p0	= 4
-	dim_center_p1	= 5
-	aug_center_p1	= 6
-	change_sens_p1	= 7
-	dim_p_nb		= 8
-	aug_p_nb		= 9
-	start			= 10
-	pause			= 11
+	start			= 2
+	pause			= 3
+
+	dim_p_nb		= 4
+	aug_p_nb		= 5
+
+	dim_center_p0	= 6
+	aug_center_p0	= 7
+	change_sens_p0	= 8
+	
+	dim_center_p1	= 9
+	aug_center_p1	= 10
+	change_sens_p1	= 11
+
 }
 
 const key_code_name := {
@@ -150,7 +154,23 @@ fn (mut app App) list_imput_action_key_code_init(){
 	// Quit
 	app.list_imput_action[int(gg.KeyCode.f4)] = Actions.quit
 
-	app.list_action_key_code[1] = int(gg.KeyCode.f4)
+	app.list_action_key_code[Actions.quit] = int(gg.KeyCode.f4)
+
+	// Start
+	app.list_imput_action[int(gg.KeyCode.space)] = Actions.start
+	app.list_action_key_code[Actions.start] = int(gg.KeyCode.space)
+
+	// Pause
+	app.list_imput_action[int(gg.KeyCode.escape)] = Actions.pause
+	app.list_action_key_code[Actions.pause] = int(gg.KeyCode.escape)
+	///////////////////////////////////////////////////////////////////////////////////////
+	
+	// Nb players
+	app.list_imput_action[int(gg.KeyCode.t)] = Actions.dim_p_nb
+	app.list_imput_action[int(gg.KeyCode.y)] = Actions.aug_p_nb
+
+	app.list_action_key_code[Actions.dim_p_nb] = int(gg.KeyCode.t)
+	app.list_action_key_code[Actions.aug_p_nb] = int(gg.KeyCode.y)
 
 	// Player 0
 	app.list_imput_action[int(gg.KeyCode.s)] = Actions.dim_center_p0
@@ -169,21 +189,6 @@ fn (mut app App) list_imput_action_key_code_init(){
 	app.list_action_key_code[5] = int(gg.KeyCode.u)
 	app.list_action_key_code[6] = int(gg.KeyCode.i)
 	app.list_action_key_code[7] = int(gg.KeyCode.o)
-
-	// Nb players
-	app.list_imput_action[int(gg.KeyCode.t)] = Actions.dim_p_nb
-	app.list_imput_action[int(gg.KeyCode.y)] = Actions.aug_p_nb
-
-	app.list_action_key_code[8] = int(gg.KeyCode.t)
-	app.list_action_key_code[9] = int(gg.KeyCode.y)
-
-	// Start
-	app.list_imput_action[int(gg.KeyCode.space)] = Actions.start
-	app.list_action_key_code[10] = int(gg.KeyCode.space)
-
-	// Pause
-	app.list_imput_action[int(gg.KeyCode.escape)] = Actions.pause
-	app.list_action_key_code[11] = int(gg.KeyCode.escape)
 }
 
 fn (mut app App) imput(index int){
@@ -213,10 +218,10 @@ fn (mut app App) imput(index int){
 
 fn (mut app App) settings_render(){
 	for ind in 1..10{
-		if ind < actions_names.len - 1 {
+		if ind + app.pause_scroll < actions_names.len {
 			x := int(app.win_width/2)
 			y := int(100 + ind * 40)
-			app.text_rect_render(x, y, (actions_names[ind] + ": " + key_code_name[app.list_action_key_code[ind]]))
+			app.text_rect_render(x, y, (actions_names[ind + app.pause_scroll] + ": " + key_code_name[app.list_action_key_code[ind + app.pause_scroll]]))
 
 			x2 := int(3*app.win_width/4)
 			app.gg.draw_circle_filled(x2, y + 15, boutons_radius, gx.gray)
@@ -284,6 +289,7 @@ fn (mut app App) imput_action(index int){
 			}
 		}
 		.pause{
+			app.pause_scroll = 0
 			app.pause = !app.pause
 		}
 		else{}

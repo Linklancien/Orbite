@@ -2,7 +2,7 @@ import gg
 import gx
 import math
 
-const player_r = 10
+const player_r	= 10
 const time		= 1.0/20.0
 
 struct Player{
