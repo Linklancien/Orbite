@@ -179,41 +179,53 @@ fn (mut app App) list_imput_action_key_code_init(){
 	app.list_action_key_code[Actions.dim_p_nb] = int(gg.KeyCode.t)
 	app.list_action_key_code[Actions.aug_p_nb] = int(gg.KeyCode.y)
 
+	mut p_dim	:= int(gg.KeyCode.s)
+	mut p_aug	:= int(gg.KeyCode.d)
+	mut p_sens	:= int(gg.KeyCode.f)
 	// Player 0
-	app.list_imput_action[int(gg.KeyCode.s)] = Actions.dim_center_p0
-	app.list_imput_action[int(gg.KeyCode.d)] = Actions.aug_center_p0
-	app.list_imput_action[int(gg.KeyCode.f)] = Actions.change_sens_p0
+	app.list_imput_action[p_dim] = Actions.dim_center_p0
+	app.list_imput_action[p_aug] = Actions.aug_center_p0
+	app.list_imput_action[p_sens] = Actions.change_sens_p0
 
-	app.list_action_key_code[6] = int(gg.KeyCode.s)
-	app.list_action_key_code[7] = int(gg.KeyCode.d)
-	app.list_action_key_code[8] = int(gg.KeyCode.f)
-
+	app.list_action_key_code[6] = p_dim
+	app.list_action_key_code[7] = p_aug
+	app.list_action_key_code[8] = p_sens
+	
+	p_dim	= int(gg.KeyCode.u)
+	p_aug	= int(gg.KeyCode.i)
+	p_sens	= int(gg.KeyCode.o)
 	// Player 1
-	app.list_imput_action[int(gg.KeyCode.u)] = Actions.dim_center_p1
-	app.list_imput_action[int(gg.KeyCode.i)] = Actions.aug_center_p1
-	app.list_imput_action[int(gg.KeyCode.o)] = Actions.change_sens_p1
+	app.list_imput_action[p_dim] = Actions.dim_center_p1
+	app.list_imput_action[p_aug] = Actions.aug_center_p1
+	app.list_imput_action[p_sens] = Actions.change_sens_p1
 
-	app.list_action_key_code[9] = int(gg.KeyCode.u)
-	app.list_action_key_code[10] = int(gg.KeyCode.i)
-	app.list_action_key_code[11] = int(gg.KeyCode.o)
-
+	app.list_action_key_code[9] = p_dim
+	app.list_action_key_code[10] = p_aug
+	app.list_action_key_code[11] = p_sens
+	
+	p_dim	= int(gg.KeyCode.down)
+	p_aug	= int(gg.KeyCode.up)
+	p_sens	= int(gg.KeyCode.right)
 	// Player 2
-	app.list_imput_action[int(gg.KeyCode.a)] = Actions.dim_center_p2
-	app.list_imput_action[int(gg.KeyCode.z)] = Actions.aug_center_p2
-	app.list_imput_action[int(gg.KeyCode.e)] = Actions.change_sens_p2
+	app.list_imput_action[p_dim] = Actions.dim_center_p2
+	app.list_imput_action[p_aug] = Actions.aug_center_p2
+	app.list_imput_action[p_sens] = Actions.change_sens_p2
 
-	app.list_action_key_code[12] = int(gg.KeyCode.a)
-	app.list_action_key_code[13] = int(gg.KeyCode.z)
-	app.list_action_key_code[14] = int(gg.KeyCode.e)
+	app.list_action_key_code[12] = p_dim
+	app.list_action_key_code[13] = p_aug
+	app.list_action_key_code[14] = p_sens
 
+	p_dim	= int(gg.KeyCode.a)
+	p_aug	= int(gg.KeyCode.z)
+	p_sens	= int(gg.KeyCode.e)
 	// Player 3
-	app.list_imput_action[int(gg.KeyCode.w)] = Actions.dim_center_p3
-	app.list_imput_action[int(gg.KeyCode.x)] = Actions.aug_center_p3
-	app.list_imput_action[int(gg.KeyCode.c)] = Actions.change_sens_p3
+	app.list_imput_action[p_dim] = Actions.dim_center_p3
+	app.list_imput_action[p_aug] = Actions.aug_center_p3
+	app.list_imput_action[p_sens] = Actions.change_sens_p3
 
-	app.list_action_key_code[15] = int(gg.KeyCode.w)
-	app.list_action_key_code[16] = int(gg.KeyCode.x)
-	app.list_action_key_code[17] = int(gg.KeyCode.c)
+	app.list_action_key_code[15] = p_dim
+	app.list_action_key_code[16] = p_aug
+	app.list_action_key_code[17] = p_sens
 }
 
 fn (mut app App) imput(index int){
@@ -259,6 +271,25 @@ fn (mut app App) imput_action(index int){
 		.quit {
 			app.gg.quit()
 		}
+		.aug_p_nb {
+			if app.player_nb < nb_player_max && !app.game{
+				app.player_nb += 1
+			}
+		}
+		.dim_p_nb {
+			if app.player_nb > 1 && !app.game{
+				app.player_nb -= 1
+			}					
+		}
+		.start {
+			if !app.game{
+				app.game_start()
+			}
+		}
+		.pause{
+			app.pause_scroll = 0
+			app.pause = !app.pause
+		}
 		.dim_center_p0 {
 			if app.game{
 				if app.players_list[0].center > 0 && app.game{
@@ -298,24 +329,43 @@ fn (mut app App) imput_action(index int){
 				app.players_list[1].temps_tour = -app.players_list[1].temps_tour
 			}
 		}
-		.aug_p_nb {
-			if app.player_nb < nb_player_max && !app.game{
-				app.player_nb += 1
+		.dim_center_p2 {
+			if app.player_nb > 2 && app.game{
+				if app.players_list[2].center > 0{
+					app.players_list[2].center_changer(-1 ,app)
+				}
+			}	
+		}
+		.aug_center_p2 {
+			if app.player_nb > 2 && app.game{
+				if app.players_list[2].center < app.center_list.len -1{
+					app.players_list[2].center_changer(1 ,app)
+				}
 			}
 		}
-		.dim_p_nb {
-			if app.player_nb > 1 && !app.game{
-				app.player_nb -= 1
-			}					
-		}
-		.start {
-			if !app.game{
-				app.game_start()
+		.change_sens_p2 {
+			if app.player_nb > 2 && app.game{
+				app.players_list[2].temps_tour = -app.players_list[2].temps_tour
 			}
 		}
-		.pause{
-			app.pause_scroll = 0
-			app.pause = !app.pause
+		.dim_center_p3 {
+			if app.player_nb > 3 && app.game{
+				if app.players_list[3].center > 0{
+					app.players_list[3].center_changer(-1 ,app)
+				}
+			}	
+		}
+		.aug_center_p3 {
+			if app.player_nb > 3 && app.game{
+				if app.players_list[3].center < app.center_list.len -1{
+					app.players_list[3].center_changer(1 ,app)
+				}
+			}
+		}
+		.change_sens_p3 {
+			if app.player_nb > 3 && app.game{
+				app.players_list[3].temps_tour = -app.players_list[3].temps_tour
+			}
 		}
 		else{}
 	}

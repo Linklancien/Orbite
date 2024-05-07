@@ -89,7 +89,7 @@ fn (mut app App) new_att(){
 			center := rand.int_in_range(0, app.center_list.len) or {0}
 
 			cooldown := rand.int_in_range(100, 200)	or {100}
-			time_missile := rand.int_in_range(400, 600) or {100}
+			time_missile := rand.int_in_range(100, 200) or {100}
 
 			for _ in 0..nb{
 				radius := rand.f64_in_range(10, 40)	or{0}
