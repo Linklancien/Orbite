@@ -4,9 +4,31 @@ const pos_x = [-200, 200]
 
 fn on_frame(mut app App){
 	if app.pause{
+		if app.death_screen_time != 0 {
+			app.gg.begin()
+
+			transparence := gx.rgba(0, 0, 0, 155)
+
+			for center in app.center_list{
+				center.render(app, gx.green - transparence)
+			}
+			for p in app.players_list{
+				p.render(app, transparence)
+			}
+			for att in app.attaques{
+				att.render(app)
+			}
+			
+			app.gg.draw_rounded_rect_filled(int(app.win_width/2), 15, 60, 25, 5, gx.rgba(128, 128, 128, 255) - transparence)
+			app.gg.draw_text(int(app.win_width/2), 20, "Score: ${app.score[0]}", app.text_cfg)
+			
+			
+			app.gg.end(how: .clear)
+		}
 		app.gg.begin()
 		app.settings_render()
-		app.gg.end()
+		app.gg.end(how: .passthru)
+		
 	}
 	else{	
 		if app.death_screen_time != 0{
@@ -35,7 +57,7 @@ fn on_frame(mut app App){
 				center.render(app, gx.green)
 			}
 			for p in app.players_list{
-				p.render(app)
+				p.render(app, gx.Color{0, 0, 0, 0})
 			}
 			for att in app.attaques{
 				att.render(app)
