@@ -19,40 +19,32 @@ fn (mut app App) new_att(){
 			}
 		}
 		2{
-			mut x := 0.0
-			mut y := 0.0
-			match rand.int_in_range(1, 4) or{0} {
+			nb := int(app.score[0]/10 +1)-app.attaques.len
+			x := app.win_width/(1+nb)
+			y := app.win_height
+
+			mut direction := 0
+			mut cible	:= Vector{0, 0, 0}
+			match rand.int_in_range(1, 2) or{0} {
 				1{
-					x = rand.f64_in_range(0, app.win_width)	or{0}
+					direction	= 1
+					cible	= Vector{0, -1, 0}
 				}
 				2{
-					x = rand.f64_in_range(0, app.win_width)	or{0}
-					y = app.win_height
-				}
-				3{
-					y = rand.f64_in_range(0, app.win_height)	or{0}
-				}
-				4{
-					y = rand.f64_in_range(0, app.win_height)	or{0}
-					x = app.win_width
+					direction	= 0
+					cible	= Vector{0, 1, 0}
 				}
 				else{}
 			}
+			radius := 40
 
-			pos := Vector{x, y, 0}
-			radius := rand.f64_in_range(10, 50)	or{0}
-			mut list_p := []int{}
-			for p_ind in 0..app.players_list.len{
-				if app.players_list[p_ind].is_alive{
-					list_p << p_ind
-				}
+			for num in 0..nb{
+				pos		:= Vector{x*(num+1), y*direction, 0}
+				norm := mult(100, cible.normalize())
+
+				//name	norm	radius	pos	cooldown	time
+				app.attaques  << Meteor{Attaques_name.meteor, norm, radius, pos,  200, 500}
 			}
-			p_cible := list_p[rand.int_in_range(0, list_p.len-1) or {0}]
-
-			norm := mult(100, (app.players_list[p_cible].pos - pos).normalize())
-
-			//name	norm	radius	pos	cooldown	time
-			app.attaques  << Meteor{Attaques_name.meteor, norm, radius, pos,  200, 500}
 		}
 		3{
 			for attaque in app.attaques{
@@ -73,7 +65,7 @@ fn (mut app App) new_att(){
 					sens = -1
 				}
 
-				temps_tour := 2*f64(sens)*math.pi*app.center_list[0].radius/rand.f64_in_range(150, 400) or {100}
+				temps_tour := 2*f64(sens)*math.pi*app.center_list[0].radius/rand.f64_in_range(200, 400) or {200}
 				cooldown := rand.int_in_range(100, 200) or {100}
 				time_laser := rand.int_in_range(300, 500) or {100}
 
