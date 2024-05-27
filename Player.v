@@ -1,4 +1,3 @@
-import gg
 import gx
 import math
 
@@ -15,8 +14,8 @@ struct Player{
 	color			gx.Color
 }
 
-fn (p Player) render(app App, transparence gx.Color){
-	app.gg.draw_circle_filled(f32(p.pos.x), f32(p.pos.y), player_r, p.color - transparence)
+fn (p Player) render(app App, transparence u8){
+	app.gg.draw_circle_filled(f32(p.pos.x), f32(p.pos.y), player_r, attenuation(p.color, transparence))
 }
 
 fn (mut p Player) update(app App){

@@ -4,13 +4,12 @@ const pos_x = [-200, 200]
 
 fn on_frame(mut app App){
 	if app.pause{
+		transparence := u8(100)
 		if app.death_screen_time != 0 {
 			app.gg.begin()
 
-			transparence := gx.rgba(0, 0, 0, 155)
-
 			for center in app.center_list{
-				center.render(app, gx.green - transparence)
+				center.render(app, attenuation(gx.green, transparence))
 			}
 			for p in app.players_list{
 				p.render(app, transparence)
@@ -19,11 +18,14 @@ fn on_frame(mut app App){
 				att.render(app)
 			}
 			
-			app.gg.draw_rounded_rect_filled(int(app.win_width/2), 15, 60, 25, 5, gx.rgba(128, 128, 128, 255) - transparence)
+			app.gg.draw_rounded_rect_filled(int(app.win_width/2), 15, 60, 25, 5, attenuation(gx.rgba(128, 128, 128, 255), transparence) )
 			app.gg.draw_text(int(app.win_width/2), 20, "Score: ${app.score[0]}", app.text_cfg)
 			
 			
 			app.gg.end(how: .clear)
+		}
+		else{
+			app.lobby(transparence)
 		}
 		app.gg.begin()
 		app.settings_render()
@@ -57,7 +59,7 @@ fn on_frame(mut app App){
 				center.render(app, gx.green)
 			}
 			for p in app.players_list{
-				p.render(app, gx.Color{0, 0, 0, 0})
+				p.render(app, 255)
 			}
 			for att in app.attaques{
 				att.render(app)
@@ -70,27 +72,27 @@ fn on_frame(mut app App){
 			app.gg.end()
 		}
 		else{
-			app.lobby()
+			app.lobby(255)
 		}
 	}
 }
 
-fn (app App) lobby(){
+fn (app App) lobby(transparence u8){
 	app.gg.begin()
 
-	app.text_rect_render(int(app.win_width/2), int(app.win_height/2), "Score: ${app.score[0]}")
+	app.text_rect_render(int(app.win_width/2), int(app.win_height/2), "Score: ${app.score[0]}", transparence)
 
-	app.text_rect_render(int(app.win_width/2), int(app.win_height/2) - 40, "Players nb: ${app.player_nb}")
+	app.text_rect_render(int(app.win_width/2), int(app.win_height/2) - 40, "Players nb: ${app.player_nb}", transparence)
 
 	for ind, circle_pos in app.bouton_list{
 		x := int(circle_pos.x)
 		y := int(circle_pos.y)
-		app.gg.draw_circle_filled(x, y, boutons_radius, gx.gray)
+		app.gg.draw_circle_filled(x, y, boutons_radius, attenuation(gx.gray, transparence))
 		app.gg.draw_text(x, y, text_boutons[ind], app.bouton_cfg)
 	}
 
 
-	app.text_rect_render(int(app.win_width/2), int(app.win_height/2) + 40, "Press " + key_code_name[app.list_action_key_code[Actions.start]])
+	app.text_rect_render(int(app.win_width/2), int(app.win_height/2) + 40, "Press " + key_code_name[app.list_action_key_code[Actions.start]], transparence)
 	mut y := 0
 	if app.player_nb <= 2{
 		y = int(app.win_height/2)
@@ -108,8 +110,8 @@ fn (app App) lobby(){
 
 		str := key_code_name[app.list_action_key_code[6+3*p_nb]] + " " + key_code_name[app.list_action_key_code[7+3*p_nb]] + " " + key_code_name[app.list_action_key_code[8+3*p_nb]]
 
-		app.text_rect_render(x, new_y, str)
-		app.gg.draw_circle_filled(x, new_y - 40, 10, color_player[p_nb])
+		app.text_rect_render(x, new_y, str, transparence)
+		app.gg.draw_circle_filled(x, new_y - 40, 10, attenuation(color_player[p_nb], transparence))
 	}
 
 	// app.gg.draw_circle_filled(f32(app.win_width/2), f32(app.win_height/2), 10, gx.blue)
@@ -117,10 +119,11 @@ fn (app App) lobby(){
 	app.gg.end()
 }
 
-fn (app App) text_rect_render(x int, y int, text string){
+fn (app App) text_rect_render(x int, y int, text string, transparence u8){
 	lenght := text.len * app.text_cfg.size/2
 	new_x := x - lenght/2
 	new_y := y
-	app.gg.draw_rounded_rect_filled(new_x - 5, new_y, lenght, 25, 5, gx.gray)
+	app.gg.draw_rounded_rect_filled(new_x - 5, new_y, lenght, 25, 5, attenuation(gx.gray, transparence))
 	app.gg.draw_text(new_x, new_y + 5, text, app.text_cfg)
 }
+

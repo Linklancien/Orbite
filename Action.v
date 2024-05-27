@@ -258,7 +258,7 @@ fn (mut app App) settings_render(){
 		if ind + app.pause_scroll < actions_names.len {
 			x := int(app.win_width/2)
 			y := int(100 + ind * 40)
-			app.text_rect_render(x, y, (actions_names[ind + app.pause_scroll] + ": " + key_code_name[app.list_action_key_code[ind + app.pause_scroll]]))
+			app.text_rect_render(x, y, (actions_names[ind + app.pause_scroll] + ": " + key_code_name[app.list_action_key_code[ind + app.pause_scroll]]), 255)
 
 			x2 := int(3*app.win_width/4)
 			app.gg.draw_circle_filled(x2, y + 15, boutons_radius, gx.gray)
