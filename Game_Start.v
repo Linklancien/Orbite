@@ -20,7 +20,7 @@ fn (mut app App) game_start(){
 	mut nb := 1
 	for app.players_list.len < app.player_nb{
 		app.players_list << Player{Vector{0, 0, 0}, rota*nb, 1, 0, true, color_player[nb]}
-		nb += 1
+		nb += 1 
 	}
 	
 	for mut p in app.players_list{
@@ -29,5 +29,7 @@ fn (mut app App) game_start(){
 
 	app.death_screen_time = 35
 	app.game = true
-	app.score[0] = 0
+	for i in 0 .. app.score.len {
+		app.score[i] = 0
+	}
 }
