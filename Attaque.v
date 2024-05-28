@@ -132,12 +132,12 @@ struct Laser{
 }
 
 fn (mut laser Laser) update(mut app App){
+	laser.rotation += time/laser.temps_tour
 	if laser.cooldown > 0{
 		laser.cooldown -= 1
 	}
 	else if laser.time > 0{
 		laser.time -= 1
-		laser.rotation += time/laser.temps_tour
 	}
 }
 

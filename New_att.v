@@ -19,7 +19,13 @@ fn (mut app App) new_att(){
 			}
 		}
 		2{
-			nb := int(app.score[0]/10 +1)-app.attaques.len
+			mut max_score := app.score[0]
+			for i in app.score {
+				if i > max_score {
+					max_score = i
+				}
+			}
+			nb := int(max_score/10 +1)-app.attaques.len
 			x := app.win_width/(1+nb)
 			y := app.win_height
 
@@ -56,7 +62,13 @@ fn (mut app App) new_att(){
 				}
 			}
 			if count < 1 {
-				nb := int(app.score[0]/10 +1)-app.attaques.len
+				mut max_score := app.score[0]
+				for i in app.score {
+					if i > max_score {
+						max_score = i
+					}
+				}
+				nb := int(max_score/10 +1)-app.attaques.len
 
 				rota := rand.f64_in_range(0, 2*math.pi) or {0}
 
@@ -76,7 +88,13 @@ fn (mut app App) new_att(){
 			}
 		}
 		4{
-			nb := int(app.score[0]/10 +1)-app.attaques.len
+			mut max_score := app.score[0]
+			for i in app.score {
+				if i > max_score {
+					max_score = i
+				}
+			}
+			nb := int(max_score/10 +1)-app.attaques.len
 
 			center := rand.int_in_range(0, app.center_list.len) or {0}
 
