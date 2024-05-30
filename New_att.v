@@ -56,18 +56,18 @@ fn (mut app App) new_att(){
 				}
 			}
 			if count < 1 {
-				nb := int(app.score[0]/10 +1)-app.attaques.len
+				nb := int(app.score[0]/10 +1) - app.attaques.len
 
 				rota := rand.f64_in_range(0, 2*math.pi) or {0}
 
-				mut sens := rand.int_in_range(0, 2) or {0}
+				mut sens := rand.int_in_range(0, 1) or {0}
 				if sens == 0{
 					sens = -1
 				}
 
 				temps_tour := 2*f64(sens)*math.pi*app.center_list[0].radius/rand.f64_in_range(200, 400) or {200}
 				cooldown := rand.int_in_range(100, 200) or {100}
-				time_laser := rand.int_in_range(300, 500) or {100}
+				time_laser := rand.int_in_range(300, 400) or {100}
 
 				for laser_num in 0..nb{
 					// name	rotation	temps_tour cooldown	time

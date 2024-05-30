@@ -179,9 +179,9 @@ fn (mut app App) list_imput_action_key_code_init(){
 	app.list_action_key_code[Actions.dim_p_nb] = int(gg.KeyCode.t)
 	app.list_action_key_code[Actions.aug_p_nb] = int(gg.KeyCode.y)
 
-	mut p_dim	:= int(gg.KeyCode.s)
-	mut p_aug	:= int(gg.KeyCode.d)
-	mut p_sens	:= int(gg.KeyCode.f)
+	mut p_dim	:= int(gg.KeyCode.v)
+	mut p_aug	:= int(gg.KeyCode.b)
+	mut p_sens	:= int(gg.KeyCode.n)
 	// Player 0
 	app.list_imput_action[p_dim] = Actions.dim_center_p0
 	app.list_imput_action[p_aug] = Actions.aug_center_p0
