@@ -2,7 +2,7 @@
 import math
 import gx
 
-const color_player = [gx.dark_red, gx.cyan, gx.dark_blue, gx.light_red]
+const color_player = [gx.pink, gx.cyan, gx.yellow, gx.orange]
 
 fn (mut app App) game_start(){
 	app.attaques = []

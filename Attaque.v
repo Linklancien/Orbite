@@ -1,4 +1,5 @@
 import gx
+import gg 
 
 interface Attaques {
 	render(app App)
@@ -12,10 +13,11 @@ interface Attaques {
 }
 
 enum Attaques_name {
-	orbs_annil
-	meteor
-	laser
-	missile
+	@none		=	0
+	orbs_annil	= 	1
+	meteor		=	2
+	laser		=	3
+	missile		=	4
 }
 
 // Orbs annil
@@ -42,8 +44,8 @@ fn (ann Orbs_annil) render(app App){
 	if ann.cooldown == 0{
 		color = gx.red
 	}
-	else if ann.cooldown %20 -10 < 0{
-		color = gx.white
+	else if ann.cooldown %20 < 10{
+		color = gx.Color{255, 255, 255, 150}
 	}
 
 	for orb in ann.orbs{
@@ -101,8 +103,15 @@ fn (met Meteor) render(app App){
 		app.gg.draw_triangle_filled(f32(pos1.x), f32(pos1.y), f32(pos2.x), f32(pos2.y), f32(pos3.x), f32(pos3.y), gx.red)
 
 		pos_line 		:= pos + Vector{0, -20, 0}
-		pos_line_bot	:= pos + Vector{0, 20, 0}
-		app.gg.draw_line(f32(pos_line.x), f32(pos_line.y), f32(pos_line_bot.x), f32(pos_line_bot.y), color)
+		pos_line_bot	:= pos + Vector{0, 15, 0}
+		x1 := f32(pos_line.x)
+		y1 := f32(pos_line.y)
+		x2 := f32(pos_line_bot.x)
+		y2 := f32(pos_line_bot.y)
+		config := gg.PenConfig {color, .solid, 5}
+		app.gg.draw_line_with_config(x1, y1, x2, y2, config)
+		app.gg.draw_line_with_config(x2, y2, x1, y1, config)
+
 		pos_circle	:= pos + Vector{0, 25, 0}
 		app.gg.draw_circle_filled(f32(pos_circle.x), f32(pos_circle.y), 5, color)
 	}
@@ -132,12 +141,12 @@ struct Laser{
 }
 
 fn (mut laser Laser) update(mut app App){
+	laser.rotation += time/laser.temps_tour
 	if laser.cooldown > 0{
 		laser.cooldown -= 1
 	}
 	else if laser.time > 0{
 		laser.time -= 1
-		laser.rotation += time/laser.temps_tour
 	}
 }
 

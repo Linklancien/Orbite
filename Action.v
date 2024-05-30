@@ -215,9 +215,9 @@ fn (mut app App) list_imput_action_key_code_init(){
 	app.list_action_key_code[13] = p_aug
 	app.list_action_key_code[14] = p_sens
 
-	p_dim	= int(gg.KeyCode.a)
-	p_aug	= int(gg.KeyCode.z)
-	p_sens	= int(gg.KeyCode.e)
+	p_dim	= int(gg.KeyCode.q)
+	p_aug	= int(gg.KeyCode.a)
+	p_sens	= int(gg.KeyCode.z)
 	// Player 3
 	app.list_imput_action[p_dim] = Actions.dim_center_p3
 	app.list_imput_action[p_aug] = Actions.aug_center_p3

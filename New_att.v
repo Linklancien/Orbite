@@ -3,8 +3,8 @@ import math
 
 fn (mut app App) new_att(){
 	mut count := 0
-	match rand.int_in_range(0, 50) or{0}{
-		1{
+	match Attaques_name.from(rand.int_in_range(1, 50) or{0}) or {Attaques_name.@none}{
+		.orbs_annil{
 			for attaque in app.attaques{
 				if attaque.name == Attaques_name.orbs_annil{
 					count += 1
@@ -18,7 +18,7 @@ fn (mut app App) new_att(){
 				app.attaques  << Orbs_annil{Attaques_name.orbs_annil, [rand.int_in_range(0, app.center_list.len) or {0}], 200, 50}	
 			}
 		}
-		2{
+		.meteor{
 			nb := int(app.score[0]/10 +1)-app.attaques.len
 			x := app.win_width/(1+nb)
 			y := app.win_height
@@ -46,7 +46,7 @@ fn (mut app App) new_att(){
 				app.attaques  << Meteor{Attaques_name.meteor, norm, radius, pos,  200, 500}
 			}
 		}
-		3{
+		.laser{
 			for attaque in app.attaques{
 				if attaque.name == Attaques_name.laser{
 					count += 1
@@ -75,10 +75,10 @@ fn (mut app App) new_att(){
 				}
 			}
 		}
-		4{
+		.missile{
 			nb := int(app.score[0]/10 +1)-app.attaques.len
 
-			center := rand.int_in_range(0, app.center_list.len) or {0}
+			center := rand.int_in_range(1, app.center_list.len) or {0}
 
 			cooldown := rand.int_in_range(100, 200)	or {100}
 			time_missile := rand.int_in_range(100, 200) or {100}
