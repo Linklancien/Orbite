@@ -274,11 +274,13 @@ fn (mut app App) imput_action(index int){
 		.aug_p_nb {
 			if app.player_nb < nb_player_max && !app.game{
 				app.player_nb += 1
+				app.score << 0
 			}
 		}
 		.dim_p_nb {
 			if app.player_nb > 1 && !app.game{
 				app.player_nb -= 1
+				app.score.delete_last()
 			}					
 		}
 		.start {

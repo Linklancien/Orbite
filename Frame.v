@@ -18,8 +18,10 @@ fn on_frame(mut app App){
 				att.render(app)
 			}
 			
-			app.gg.draw_rounded_rect_filled(int(app.win_width/2), 15, 60, 25, 5, attenuation(gx.rgba(128, 128, 128, 255), transparence) )
-			app.gg.draw_text(int(app.win_width/2), 20, "Score: ${app.score[0]}", app.text_cfg)
+			for i in 0 .. app.score.len-1 {
+				app.gg.draw_rounded_rect_filled(40+(i%2)*560, 15+int(i/2)*65, 60, 25, 5, attenuation(gx.rgba(128, 128, 128, 255), transparence) )
+				app.gg.draw_text(40+(i%2)*560, 15+int(i/2)*65, "Score: ${app.score[i+1]}", app.text_cfg)
+			}
 			
 			
 			app.gg.end(how: .clear)
@@ -35,7 +37,13 @@ fn on_frame(mut app App){
 	else{	
 		if app.death_screen_time != 0{
 			if app.game{
-				if app.attaques.len < int(app.score[0]/10 +1){
+				mut max_score := app.score[0]
+				for i in app.score {
+					if i > max_score {
+						max_score = i
+					}
+				}
+				if app.attaques.len < int(max_score/10 +1){
 					app.new_att()
 				}
 
@@ -65,8 +73,10 @@ fn on_frame(mut app App){
 				att.render(app)
 			}
 			
-			app.gg.draw_rounded_rect_filled(int(app.win_width/2), 15, 60, 25, 5, gx.gray)
-			app.gg.draw_text(int(app.win_width/2), 20, "Score: ${app.score[0]}", app.text_cfg)
+			for i in 0 .. app.score.len-1 {
+				app.gg.draw_rounded_rect_filled(40+(i%2)*560, 15+int(i/2)*65, 60, 25, 5, gx.gray)
+				app.gg.draw_text(40+(i%2)*560, 15+int(i/2)*65, "Score: ${app.score[i+1]}", app.text_cfg)
+			}
 			
 			
 			app.gg.end()
@@ -79,7 +89,6 @@ fn on_frame(mut app App){
 
 fn (app App) lobby(transparence u8){
 	app.gg.begin()
-
 	app.text_rect_render(int(app.win_width/2), int(app.win_height/2), "Score: ${app.score[0]}", transparence)
 
 	app.text_rect_render(int(app.win_width/2), int(app.win_height/2) - 40, "Players nb: ${app.player_nb}", transparence)
