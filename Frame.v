@@ -37,13 +37,7 @@ fn on_frame(mut app App){
 	else{	
 		if app.death_screen_time != 0{
 			if app.game{
-				mut max_score := app.score[0]
-				for i in app.score {
-					if i > max_score {
-						max_score = i
-					}
-				}
-				if app.attaques.len < int(max_score/10 +1){
+				if app.attaques.len < int(app.score[0]/10 +1){
 					app.new_att()
 				}
 
