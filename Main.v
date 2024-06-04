@@ -82,7 +82,7 @@ fn on_init(mut app App) {
 	app.game = false
 	app.gg.begin()
 
-	app.score = [0]
+	app.score = [0, 0]
 
 	size := app.gg.window_size()
 	app.win_width 		= size.width
