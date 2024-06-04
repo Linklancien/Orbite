@@ -37,7 +37,7 @@ fn on_frame(mut app App){
 	else{	
 		if app.death_screen_time != 0{
 			if app.game{
-				if app.attaques.len < int(app.score[0]/10 +1){{
+				if app.attaques.len < int(app.score[0]/10 +1){
 					app.new_att()
 				}
 
