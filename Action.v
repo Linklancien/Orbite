@@ -159,6 +159,7 @@ fn (mut app App) list_imput_action_key_code_init(){
 	app.list_action_key_code = []int{len: actions_names.len, init: 0}
 
 	// Quit
+
 	app.list_imput_action[int(gg.KeyCode.f4)] = Actions.quit
 
 	app.list_action_key_code[Actions.quit] = int(gg.KeyCode.f4)

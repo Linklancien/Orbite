@@ -20,9 +20,9 @@ fn on_frame(mut app App){
 			
 			for i in 0 .. app.score.len-1 {
 				app.gg.draw_rounded_rect_filled(40+(i%2)*560, 15+int(i/2)*65, 60, 25, 5, attenuation(gx.rgba(128, 128, 128, 255), transparence) )
-				app.gg.draw_text(40+(i%2)*560, 15+int(i/2)*65, "Score: ${app.score[i+1]}", app.text_cfg)
+				app.gg.draw_text(40+(i%2)*560, 20+int(i/2)*65, "Score: ${app.score[i+1]}", app.text_cfg)
 			}
-			
+		
 			
 			app.gg.end(how: .clear)
 		}
