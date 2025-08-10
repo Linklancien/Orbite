@@ -3,12 +3,13 @@ module main
 import math
 
 struct Vector {
-	mut:
-		x f64
-		y f64
-		z f64
+mut:
+	x f64
+	y f64
+	z f64
 }
-const vector_null = Vector{0,0,0}
+
+const vector_null = Vector{0, 0, 0}
 
 // FONCTIONS POUR LES VECTEURS
 @[inline]
@@ -43,12 +44,12 @@ fn mult(val f64, vec Vector) Vector {
 }
 
 // produit scalaire (dot product)
-fn dot(vec1 Vector, vec2 Vector) f64 { 
+fn dot(vec1 Vector, vec2 Vector) f64 {
 	return vec1.x * vec2.x + vec1.y * vec2.y + vec1.z * vec2.z
 }
 
 // Produit Vectoriel
-fn prod_vec(vec1 Vector, vec2 Vector) Vector { 
+fn prod_vec(vec1 Vector, vec2 Vector) Vector {
 	new_x := vec1.y * vec2.z - vec1.z * vec2.y
 	new_y := vec1.z * vec2.x - vec1.x * vec2.z
 	new_z := vec1.x * vec2.y - vec1.y * vec2.x
@@ -66,7 +67,8 @@ fn divi_v(vec1 Vector, vec2 Vector) Vector {
 fn (vec Vector) turn(angle f64) Vector {
 	cos := math.cos(angle)
 	sin := math.sin(angle)
-	return mult(vec.x, Vector{cos, sin, 0}) + mult(vec.y, Vector{-sin, cos, 0}) + Vector{0, 0, vec.z}
+	return mult(vec.x, Vector{cos, sin, 0}) + mult(vec.y, Vector{-sin, cos, 0}) +
+		Vector{0, 0, vec.z}
 }
 
 fn (vec1 Vector) + (vec2 Vector) Vector {
@@ -77,4 +79,3 @@ fn (vec1 Vector) + (vec2 Vector) Vector {
 fn (vec1 Vector) - (vec2 Vector) Vector {
 	return Vector{vec1.x - vec2.x, vec1.y - vec2.y, vec1.z - vec2.z}
 }
-
