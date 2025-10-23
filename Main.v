@@ -1,13 +1,12 @@
 module main
 
 import gg
-import gx
 
-const bg_color = gx.black
+const bg_color = gg.black
 const nb_player_max = 4
 
 //______________UI______________
-const colors = [gx.red, gx.blue]
+const colors = [gg.red, gg.blue]
 
 const scale = 1
 
@@ -24,8 +23,8 @@ mut:
 
 	// UI
 	// Police
-	text_cfg   gx.TextCfg
-	bouton_cfg gx.TextCfg
+	text_cfg   gg.TextCfg
+	bouton_cfg gg.TextCfg
 	// Boutons
 	bouton_list []Vector
 
@@ -85,8 +84,8 @@ fn on_init(mut app App) {
 	app.win_width = size.width
 	app.win_height = size.height
 
-	app.text_cfg = gx.TextCfg{gx.black, 16, .left, .top, 100, '', false, false, false}
-	app.bouton_cfg = gx.TextCfg{gx.black, 16, .center, .middle, 100, '', false, false, false}
+	app.text_cfg = gg.TextCfg{gg.black, 16, .left, .top, 100, '', false, false, false}
+	app.bouton_cfg = gg.TextCfg{gg.black, 16, .center, .middle, 100, '', false, false, false}
 
 	// BOUTONS
 	app.bouton_list << [Vector{app.win_width / 2 - 100, app.win_height / 2 - 30, 0},
