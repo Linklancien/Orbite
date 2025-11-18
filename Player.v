@@ -1,4 +1,4 @@
-import gx
+import gg
 import math
 
 const player_r = 10
@@ -11,7 +11,7 @@ mut:
 	temps_tour f64
 	center     int
 	is_alive   bool
-	color      gx.Color
+	color      gg.Color
 }
 
 fn (p Player) render(app App, transparence u8) {
@@ -43,7 +43,7 @@ mut:
 	radius f64
 }
 
-fn (center Center) render(app App, color gx.Color) {
+fn (center Center) render(app App, color gg.Color) {
 	app.gg.draw_circle_empty(f32(center.pos.x), f32(center.pos.y), f32(center.dist.len()),
 		color)
 }

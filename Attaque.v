@@ -1,4 +1,4 @@
-import gx
+import gg
 import gg
 
 interface Attaques {
@@ -38,11 +38,11 @@ fn (mut ann Orbs_annil) update(mut app App) {
 }
 
 fn (ann Orbs_annil) render(app App) {
-	mut color := gx.gray
+	mut color := gg.gray
 	if ann.cooldown == 0 {
-		color = gx.red
+		color = gg.red
 	} else if ann.cooldown % 20 < 10 {
-		color = gx.Color{255, 255, 255, 150}
+		color = gg.Color{255, 255, 255, 150}
 	}
 
 	for orb in ann.orbs {
@@ -86,9 +86,9 @@ fn (mut met Meteor) update(mut app App) {
 
 fn (met Meteor) render(app App) {
 	if met.cooldown > 0 {
-		mut color := gx.gray
+		mut color := gg.gray
 		if met.cooldown % 20 - 10 < 0 {
-			color = gx.white
+			color = gg.white
 		}
 
 		pos := met.pos + mult(1, met.norm)
@@ -96,7 +96,7 @@ fn (met Meteor) render(app App) {
 		pos2 := pos + Vector{-40, 40, 0}
 		pos3 := pos + Vector{40, 40, 0}
 		app.gg.draw_triangle_filled(f32(pos1.x), f32(pos1.y), f32(pos2.x), f32(pos2.y),
-			f32(pos3.x), f32(pos3.y), gx.red)
+			f32(pos3.x), f32(pos3.y), gg.red)
 
 		pos_line := pos + Vector{0, -20, 0}
 		pos_line_bot := pos + Vector{0, 15, 0}
@@ -111,7 +111,7 @@ fn (met Meteor) render(app App) {
 		pos_circle := pos + Vector{0, 25, 0}
 		app.gg.draw_circle_filled(f32(pos_circle.x), f32(pos_circle.y), 5, color)
 	} else {
-		app.gg.draw_circle_filled(f32(met.pos.x), f32(met.pos.y), f32(met.radius), gx.red)
+		app.gg.draw_circle_filled(f32(met.pos.x), f32(met.pos.y), f32(met.radius), gg.red)
 	}
 }
 
@@ -145,11 +145,11 @@ fn (mut laser Laser) update(mut app App) {
 }
 
 fn (laser Laser) render(app App) {
-	mut color := gx.gray
+	mut color := gg.gray
 	if laser.cooldown == 0 {
-		color = gx.red
+		color = gg.red
 	} else if laser.cooldown % 20 < 10 {
-		color = gx.white
+		color = gg.white
 	}
 	pos := Vector{f32(app.win_width / 2), f32(app.win_height / 2), 0} +
 		mult(1.2, app.center_list[app.center_list.len - 1].dist.turn(laser.rotation))
@@ -196,16 +196,16 @@ fn (mut miss Missile) update(mut app App) {
 }
 
 fn (miss Missile) render(app App) {
-	mut color := gx.gray
+	mut color := gg.gray
 	if miss.cooldown == 0 {
-		color = gx.red
+		color = gg.red
 	} else if miss.cooldown % 20 < 10 {
-		color = gx.white
+		color = gg.white
 	}
 	// Cible
 	cible_x := f32(miss.cible.x)
 	cible_y := f32(miss.cible.y)
-	app.gg.draw_circle_empty(cible_x, cible_y, 10, gx.white)
+	app.gg.draw_circle_empty(cible_x, cible_y, 10, gg.white)
 
 	// Missile
 	app.gg.draw_circle_filled(f32(miss.pos.x), f32(miss.pos.y), f32(miss.radius), color)

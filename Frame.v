@@ -1,4 +1,4 @@
-import gx
+import gg
 
 const pos_x = [-200, 200]
 
@@ -9,7 +9,7 @@ fn on_frame(mut app App) {
 			app.gg.begin()
 
 			for center in app.center_list {
-				center.render(app, attenuation(gx.green, transparence))
+				center.render(app, attenuation(gg.green, transparence))
 			}
 			for p in app.players_list {
 				p.render(app, transparence)
@@ -20,7 +20,7 @@ fn on_frame(mut app App) {
 
 			for i in 0 .. app.score.len - 1 {
 				app.gg.draw_rounded_rect_filled(40 + (i % 2) * 560, 15 + int(i / 2) * 65,
-					60, 25, 5, attenuation(gx.rgba(128, 128, 128, 255), transparence))
+					60, 25, 5, attenuation(gg.rgba(128, 128, 128, 255), transparence))
 				app.gg.draw_text(40 + (i % 2) * 560, 20 + int(i / 2) * 65, 'Score: ${app.score[i + 1]}',
 					app.text_cfg)
 			}
@@ -55,7 +55,7 @@ fn on_frame(mut app App) {
 			app.gg.begin()
 
 			for center in app.center_list {
-				center.render(app, gx.green)
+				center.render(app, gg.green)
 			}
 			for p in app.players_list {
 				p.render(app, 255)
@@ -66,7 +66,7 @@ fn on_frame(mut app App) {
 
 			for i in 0 .. app.score.len - 1 {
 				app.gg.draw_rounded_rect_filled(40 + (i % 2) * 560, 15 + int(i / 2) * 65,
-					60, 25, 5, gx.gray)
+					60, 25, 5, gg.gray)
 				app.gg.draw_text(40 + (i % 2) * 560, 15 + int(i / 2) * 65, 'Score: ${app.score[i + 1]}',
 					app.text_cfg)
 			}
@@ -89,7 +89,7 @@ fn (app App) lobby(transparence u8) {
 	for ind, circle_pos in app.bouton_list {
 		x := int(circle_pos.x)
 		y := int(circle_pos.y)
-		app.gg.draw_circle_filled(x, y, boutons_radius, attenuation(gx.gray, transparence))
+		app.gg.draw_circle_filled(x, y, boutons_radius, attenuation(gg.gray, transparence))
 		app.gg.draw_text(x, y, text_boutons[ind], app.bouton_cfg)
 	}
 
@@ -117,7 +117,7 @@ fn (app App) lobby(transparence u8) {
 		app.gg.draw_circle_filled(x, new_y - 40, 10, attenuation(color_player[p_nb], transparence))
 	}
 
-	// app.gg.draw_circle_filled(f32(app.win_width/2), f32(app.win_height/2), 10, gx.blue)
+	// app.gg.draw_circle_filled(f32(app.win_width/2), f32(app.win_height/2), 10, gg.blue)
 
 	app.gg.end()
 }
@@ -126,7 +126,7 @@ fn (app App) text_rect_render(x int, y int, text string, transparence u8) {
 	lenght := text.len * app.text_cfg.size / 2
 	new_x := x - lenght / 2
 	new_y := y
-	app.gg.draw_rounded_rect_filled(new_x - 5, new_y, lenght, 25, 5, attenuation(gx.gray,
+	app.gg.draw_rounded_rect_filled(new_x - 5, new_y, lenght, 25, 5, attenuation(gg.gray,
 		transparence))
 	app.gg.draw_text(new_x, new_y + 5, text, app.text_cfg)
 }
