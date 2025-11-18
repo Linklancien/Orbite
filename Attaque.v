@@ -1,5 +1,4 @@
 import gg
-import gg
 
 interface Attaques {
 	name Attaques_name

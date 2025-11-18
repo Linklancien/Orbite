@@ -1,5 +1,4 @@
 import gg
-import gg
 
 const actions_names = ['None', 'Quit the game', 'Start the game', 'Pause', '+ players nbs',
 	'- players nbs', '- center player 0', '+ center player 0', 'Change sens player 0',
